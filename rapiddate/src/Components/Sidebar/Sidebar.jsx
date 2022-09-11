@@ -1,14 +1,17 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 
 const Sidebar = () => {
     return (
         <div>
             <h1 className="logo">Rapyd Dating</h1>
             <div className="nav-menu">
-                <div className="nav-item selected">
-                    {/* TODO: Add icon */}
-                    <h3>Home</h3>
-                </div>
+                <Link to="/">
+                    <div className="nav-item selected">
+                        {/* TODO: Add icon */}
+                        <h3>Home</h3>
+                    </div>
+                </Link>
                 <div className="nav-item">
                     {/* TODO: Add icon */}
                     <h3>Explore</h3>
