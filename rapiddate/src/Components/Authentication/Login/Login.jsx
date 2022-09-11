@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {useNavigate} from 'react-router-dom';
 import signInWithGoogle from "../GoogleAuth";
 import emailAuthLogin from "./emailAuthLogin";
+import { useDispatch } from 'react-redux'
 
 const Login = () => {
     const [data, setData] = useState({
@@ -12,13 +13,15 @@ const Login = () => {
     });
     const { email, password, error, loading } = data;
     const history = useNavigate()
+    const dispatch = useDispatch()
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        emailAuthLogin(setData, data, history)
+        setData({...data, loading: true})
+        await emailAuthLogin(setData, data, history, dispatch)
         setData({
             email: "",
             password: "",
@@ -28,7 +31,7 @@ const Login = () => {
     };
     
     const handleGoogle = () => {
-        signInWithGoogle(setData, data)
+        signInWithGoogle(history, dispatch)
     }
     return (
         <section>

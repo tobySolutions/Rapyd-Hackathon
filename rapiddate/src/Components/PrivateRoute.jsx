@@ -1,17 +1,19 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../Context/AuthProvider";
+import React from "react";
 import {  Route, Routes } from "react-router-dom";
 import { Navigate } from 'react-router-dom';
+import { showUser } from "../redux/User/UserSlice";
+import { useSelector } from "react-redux";
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { user } = useContext(AuthContext);
-
+const PrivateRoute = ({ element: Component, ...rest }) => {
+    const user = useSelector(showUser)
     return (
         <Routes>
-            <Route {...rest} exact
-            render={(props) =>
-                user ? <Component {...props} /> : <Navigate replace to='/login' />
+            <Route {...rest} 
+            element = {
+                user.uid ? 
+                Component  : 
+                <Navigate replace to='/login' />
             }
             />
         </Routes>
