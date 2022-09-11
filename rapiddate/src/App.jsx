@@ -17,7 +17,7 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Routes>
-          <PrivateRoute exact path="*" element={<Dashboard />} />
+          <PrivateRoute  path="*" element={<Dashboard />} />
         </BrowserRouter> 
       </AuthProvider>
     </div>

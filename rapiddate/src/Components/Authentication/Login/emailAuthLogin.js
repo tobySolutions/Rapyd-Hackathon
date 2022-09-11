@@ -23,7 +23,8 @@ const emailAuthLogin = async (setData, data, history, dispatch) => {
         await updateDoc(doc(db, "Users", result.user.uid), {
             isOnline: true,
         });
-            dispatch(setUser(dbResult))
+        dispatch(setUser(dbResult))
+        localStorage.setItem('user', JSON.stringify(dbResult));
         history("/");
     } catch (err) {
         setData({ ...data, error: err.message, loading: false });

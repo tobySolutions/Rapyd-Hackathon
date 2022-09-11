@@ -1,10 +1,11 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import styles from "./Sidebar.module.css"
 
 const Sidebar = () => {
     return (
         <div>
-            <h1 className="logo">Rapyd Dating</h1>
+            <h1 className={styles.logo}>Rapyd Dating</h1>
             <div className="nav-menu">
                 <Link to="/">
                     <div className="nav-item selected">

@@ -5,6 +5,7 @@ import emailAuthLogin from "./emailAuthLogin";
 import { useDispatch } from 'react-redux'
 
 const Login = () => {
+
     const [data, setData] = useState({
         email: "",
         password: "",
