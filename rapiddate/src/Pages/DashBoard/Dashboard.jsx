@@ -1,22 +1,23 @@
 import React from 'react'
 import Sidebar from '../../Components/Sidebar/Sidebar'
 import { Route, Routes } from 'react-router-dom'
-import Explore from '../../Components/Explore/Explore'
-import { useSelector } from 'react-redux'
-import { showUser } from '../../redux/User/UserSlice'
+import styles from './Dashboard.module.css'
+import Home from '../../Components/Home/Home'
+
 
 const Dashboard = () => {
-  const user = useSelector(showUser)
-  console.log(user)
+
   return (
-    <div>
-      <div className="leftDashboard">
+    <div className={styles.mainDashboard}>
+      <div className={styles.leftDashboard}>
         <Sidebar /> 
       </div>
-      <div className="rightDashboard">
-        <Routes>
-        <Route path="/name" element={<Explore />} />
-        </Routes>
+      <div className={styles.rightDashboard}>
+        <div className={styles.container}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
       </div>
     </div>
   )

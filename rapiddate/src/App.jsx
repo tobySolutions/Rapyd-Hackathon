@@ -5,21 +5,21 @@ import Register from './Components/Authentication/Register/Register'
 import PrivateRoute from './Components/PrivateRoute'
 import AuthProvider from './Context/AuthProvider'
 import Dashboard from './Pages/DashBoard/Dashboard'
+import Messages from './Pages/Messages/Messages'
 
 
 function App() {
 
   return (
     <div className="App">
-      <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route exact path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Routes>
           <PrivateRoute  path="*" element={<Dashboard />} />
+          <PrivateRoute  path="/messages" element={<Messages />} />
         </BrowserRouter> 
-      </AuthProvider>
     </div>
   )
 }

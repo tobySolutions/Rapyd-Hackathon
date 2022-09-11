@@ -1,0 +1,19 @@
+.mainDashboard {
+    display: flex;
+    align-items: center;
+}
+.leftDashboard {
+    flex: 1;
+    background-color: white;
+    min-height: 100vh;
+}
+.rightDashboard {
+    padding-block: 1.5rem;
+    flex:4;
+    background-color: rgb(223, 223, 223);
+    min-height: 100vh;
+}
+.container{
+    width:90%;
+    margin:0 auto;
+}
