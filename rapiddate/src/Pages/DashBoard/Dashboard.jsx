@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Sidebar from '../../Components/Sidebar/Sidebar'
-import { useSelector } from 'react-redux'
-import { showUser } from '../../redux/User/UserSlice'
 import { Route, Routes } from 'react-router-dom'
+import Explore from '../../Components/Explore/Explore'
 
 const Dashboard = () => {
-  const user = useSelector(showUser)
   return (
     <div>
       <div className="leftDashboard">
-        {/* <Sidebar /> */}
+        <Sidebar /> 
       </div>
       <div className="rightDashboard">
         <Routes>
-        <Route path="/" element={<Sidebar />} />
+        <Route path="/name" element={<Explore />} />
         </Routes>
       </div>
     </div>

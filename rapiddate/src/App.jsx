@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Login from './Components/Authentication/Login/Login'
 import Register from './Components/Authentication/Register/Register'
@@ -17,7 +17,7 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
           </Routes>
-          <PrivateRoute exact path="/" element={<Dashboard />} />
+          <PrivateRoute exact path="*" element={<Dashboard />} />
         </BrowserRouter> 
       </AuthProvider>
     </div>
