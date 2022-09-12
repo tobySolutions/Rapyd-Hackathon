@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className={style.navbar}>
       <div className={style.wrapper}>          
           <div className={style.nav_search}>
-            <input className={style.nav_input} type="text" placeholder="Search Products, categories ..." />
+            <input className={style.nav_input} type="text" placeholder="Search Products, Here" />
             <BsSearch className={style.nav_icon2} />
           </div>
         <div className={style.items}>
