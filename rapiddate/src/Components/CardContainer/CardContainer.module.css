@@ -1,0 +1,7 @@
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 2em;
+    /* height: 75vh;
+    overflow: scroll; */
+}

@@ -1,39 +1,29 @@
 .navbar {
-  height: 50px;
-  border-bottom: 0.5px solid #e7e4e4;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 14px;
-  color: #555;
+    height: 50px;
+    border-bottom: 0.5px solid #e7e4e4;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    justify-content: space-between;
+    margin-bottom:1.5em;
 }
 
 .navbar .wrapper {
-  width: 100%;
-  padding: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+    width: 100%;
+    padding-block: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .navbar .wrapper .search {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border: 0.5px solid lightgray;
-  padding: 3px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    border: 0.5px solid lightgray;
+    padding: 3px;
 }
 
 
@@ -41,12 +31,13 @@
     display: flex;
     cursor: pointer;
     align-items: center;
+    justify-content:space-between;
+    gap:20px;
 }
 
 .navbar .wrapper .items .item {
     display: flex;
     align-items: center;
-    margin-right: 20px;
     position: relative;
 }
 

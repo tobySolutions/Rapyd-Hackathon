@@ -36,24 +36,6 @@ const Sidebar = () => {
                         })}
                     </ul>
                 </div>
-
-                {/* THEME CHANGER */}
-                <div className={style.bottom}>
-                    <div className={style.colorOption}
-                        // onClick={() => {
-                        //     dispatch(darkMode(false))
-                        //     console.log(theme)
-                        // }}
-                    ></div>
-                    <div
-                    className={style.colorOption}
-                    // onClick={() => {
-                        
-                    //     dispatch(darkMode)
-                    //     console.log(theme)
-                    //     }}
-                    ></div>
-                </div>
             </div>
         </div>
     );
