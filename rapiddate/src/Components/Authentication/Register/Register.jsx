@@ -1,37 +1,39 @@
 import React, { useState } from "react";
 import signInWithGoogle from "../GoogleAuth";
 import emailAuth from "./EmailAuth";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 
 const Register = () => {
-  const history = useNavigate();
-  const dispatch = useDispatch()
+  const history = useNavigate()
+  const dispatch = useDispatch
   const [data, setData] = useState({
-    name: "",
+    name: '',
     email: "",
     password: "",
     error: null,
     loading: false,
   });
-  const { name, email, password, error, loading } = data;
+  const { 
+    name, 
+    email, 
+    password, 
+    error, 
+    loading 
+  } = data;
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    emailAuth(setData, data, history, dispatch)
-    setData({
-      name: "",
-      email: "",
-      password: "",
-      error: null,
-      loading: false,
-    });
+    setData({...data, loading: true})
+    await emailAuth(setData, data, history)
   };
-  const handleGoogle = () => {
-    signInWithGoogle(dispatch)
+  const handleGoogle = async () => {
+    await signInWithGoogle()
+    history('/')
   }
   return (
     <section>

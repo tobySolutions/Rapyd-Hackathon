@@ -1,20 +1,24 @@
 import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { db } from '../../database/firebase';
-import { setUsers } from '../../redux/Users/UsersSlice';
+import { showUser } from '../../redux/User/UserSlice';
+import { setUsers, showUsers } from '../../redux/Users/UsersSlice';
 import CardContainer from '../CardContainer/CardContainer';
 import Loading from '../Loader/Loading';
 import Navbar from '../NavBar/NavBar'
 import style from './Home.module.css'
 
+
 const Home = () => {
     const dispatch = useDispatch()
+    const mainUser = useSelector(showUser)
+    const userss = useSelector(showUsers)
     const [isLoading, setIsLoading] = useState(false)
     const [onlineChecked, setOnlineChecked] = useState(false)
     const userRef = collection(db, "Users")
     const getAllUsers = async () => {
-        const q = query(userRef);
+        const q = query(userRef, where("uid", "!=", mainUser.uid ));
         const querySnapshot = await getDocs(q);
         let users = []
         querySnapshot.forEach((doc) => {
@@ -30,21 +34,28 @@ const Home = () => {
     const handleOnline = async () => {
         if(!onlineChecked) {
             setIsLoading(true)
-            const q = query(userRef, where("isOnline", "==", true));
+            const q = query(
+                userRef, 
+                where("isOnline", "==", true), 
+                // where("uid", "!=", mainUser.uid),
+            );            
             const unsub =  onSnapshot(q, (querySnapshot) => {
                 let users = []
                 querySnapshot.forEach((doc) => {
                     users.push(doc.data())
                 });
-                dispatch(setUsers(users))
+                dispatch(setUsers(users.filter((user) => user.uid !== mainUser.uid)))
             });
             setIsLoading(false)
             return () => unsub();
 
-        }else{
+        }
+        else{
             getAllUsers()
         }
     }
+
+    
 
     return (
         <div className='home'>
@@ -56,6 +67,7 @@ const Home = () => {
                     type="checkbox" 
                     className={style.checkbox}
                     checked={onlineChecked}
+                    
                     onChange={e => setOnlineChecked(e.target.checked)}
                     onClick={handleOnline}
                     />

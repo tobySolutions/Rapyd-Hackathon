@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { db,auth } from "../../database/firebase";
 import { Timestamp, doc, setDoc } from "firebase/firestore"; 
 
-const signInWithGoogle = async (setUser, user,history, dispatch) => {
+const signInWithGoogle = async (user ) => {
     const provider = new GoogleAuthProvider()
     try {
         const result = await signInWithPopup(auth, provider)
@@ -16,8 +16,8 @@ const signInWithGoogle = async (setUser, user,history, dispatch) => {
             isOnline: true,
         }
         await setDoc(doc(db, "Users", result.user.uid), dbResult);
-        dispatch(setUser(dbResult))
-        history("/")
+        localStorage.setItem('user', JSON.stringify(dbResult))
+
     } catch (error) {
         console.log(error)
     }

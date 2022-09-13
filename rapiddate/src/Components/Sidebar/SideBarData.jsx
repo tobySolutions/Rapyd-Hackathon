@@ -43,4 +43,5 @@ export const sideBarData = [
         icon: <BsGear className={style.icon} />,
         route: '/settngs',
     },
+    
 ]

@@ -1,9 +1,23 @@
 import style from "./Sidebar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { sideBarData } from "./SideBarData";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../database/firebase";
+import { useSelector } from "react-redux";
+import { showUser } from "../../redux/User/UserSlice";
 
 
 const Sidebar = () => {
+    const navigate = useNavigate()
+    const user = useSelector(showUser)
+    const handleLogout = async () => {
+        localStorage.setItem('user', '')
+        await updateDoc(doc(db, 'Users', user.uid), {
+            isOnline:false
+        })
+        navigate("/login")
+    }
     
     return (
         <div className={style.sidebar}>
@@ -34,6 +48,21 @@ const Sidebar = () => {
                                 </Link>
                             )
                         })}
+                    </ul>
+                </div>
+                <div className={style.center}>
+                    <ul>
+                        <Link 
+                            to="/login" 
+                            style={{ textDecoration: "none",color: '#888' }}
+                            onClick={handleLogout}
+                        >
+                            <li className={`${style.listItem}`}>
+                                <LogoutIcon className={style.icon} />
+                                <span>Logout</span>
+                            </li>
+                        </Link>
+                        
                     </ul>
                 </div>
             </div>

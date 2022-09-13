@@ -7,10 +7,10 @@ import { showUsers } from '../../redux/Users/UsersSlice'
 const CardContainer = () => {
   const users = useSelector(showUsers)
   return (
-    <div class={style.cardContainer}>
+    <div className={style.cardContainer}>
       {users?.map((user) => {
         return (
-          <UserCard user={user} />
+          <UserCard key={user.uid} user={user} />
         )
       })}
     </div>

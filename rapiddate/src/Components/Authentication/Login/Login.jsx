@@ -22,17 +22,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setData({...data, loading: true})
-        await emailAuthLogin(setData, data, history, dispatch)
-        setData({
-            email: "",
-            password: "",
-            error: null,
-            loading: false,
-        });
+        await emailAuthLogin(setData, data, history)
     };
-    
-    const handleGoogle = () => {
-        signInWithGoogle(history, dispatch)
+    const handleGoogle = async () => {
+       await signInWithGoogle(history)
+       history("/")
     }
     return (
         <section>

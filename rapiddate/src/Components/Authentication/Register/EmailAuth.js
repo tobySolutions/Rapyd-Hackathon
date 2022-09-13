@@ -1,15 +1,12 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../database/firebase";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
-import { setUser } from "../../../redux/User/UserSlice";
 
-const emailAuth = async (setData, data, history, dispatch) => {
+const emailAuth = async (setData, data, history) => {
     const { name, email, password} = data;
-
-    setData({ ...data, error: null, loading: true });
     if (!name || !email || !password) {
         setData({ ...data, error: "All fields are required" });
-    }
+    }else{
     try {
         const result = await createUserWithEmailAndPassword(
             auth,
@@ -24,11 +21,19 @@ const emailAuth = async (setData, data, history, dispatch) => {
             isOnline: true,
         }
         await setDoc(doc(db, "Users", result.user.uid), dbResult);
-        dispatch(setUser(dbResult))
-        history("/login");
+        setData({
+            name: "",
+            email: "",
+            password: "",
+            error: null,
+            loading: false,
+        });
+        localStorage.setItem('user', JSON.stringify(dbResult));
+        
+        history("/")
     } catch (err) {
         setData({ ...data, error: err.message, loading: false });
-    }
+    }}
     return data
 }
 export default emailAuth

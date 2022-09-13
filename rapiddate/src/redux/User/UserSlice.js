@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { getDefaultMiddleware } from '@reduxjs/toolkit';
 
-// const data = localStorage.getItem('user')
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false
+})
+
+const data = localStorage.getItem('user')
 const initialState = {
-    user: {
-        uid:1234,
-    }
+    user: data ? JSON.parse(data) : {}
 }
 
 export const userSlice = createSlice({
@@ -12,7 +15,7 @@ export const userSlice = createSlice({
     initialState,
     reducers:{
         setUser: (state, {payload}) => {
-            state.user = payload
+            state.user = JSON.parse(payload)
         },
         
     },
