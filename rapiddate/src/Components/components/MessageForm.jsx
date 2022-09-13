@@ -1,5 +1,6 @@
 import React from "react";
 import Attachment from "./svg/Attachment";
+import SendIcon from '@mui/icons-material/Send';
 
 const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
   return (
@@ -23,7 +24,7 @@ const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
         />
       </div>
       <div>
-        <button className="btn">Send</button>
+        <button className="btn"><SendIcon /></button>
       </div>
     </form>
   );

@@ -138,21 +138,12 @@ const Messages = () => {
     setImg("");
   };
   return (
-    // {pending.map((user) => (
-    //           <User
-    //             key={user.uid}
-    //             user={user}
-    //             selectUser={selectUser}
-    //             user1={user1}
-    //             chat={chat}
-    //           />
-    //         ))}
     <div className={style.chat}>
       <div className={style.user}>  
         <div className={style.heading}>
           <BsArrowLeft />
           <div className={style.img}></div>
-          Grace
+          {user.name}
         </div>
         <div className={style.body}>
           <div onClick={() => setShowPending(!showPending)} className={style.pendingContainer}>
@@ -171,7 +162,7 @@ const Messages = () => {
             }
           </div>
           <div className={style.mainChat}>
-            {(showPending ? pending : friends).map((user) => (
+            {(showPending ? pending : users).map((user) => (
               <User
                 key={user.uid}
                 user={user}
@@ -184,7 +175,8 @@ const Messages = () => {
         </div>
       </div>
       <div className={style.messages}>
-        {console.log(chat, "Hey")}
+        {/* {console.log(chat, "Hey")} */}
+        
           {chat ? ( 
               <>
                 <div className={style.messageUser}>
@@ -201,19 +193,22 @@ const Messages = () => {
                     <MoreVertIcon />
                   </div>
                 </div>
-                <div className={style.message}>
-                  {msgs.length
-                    ? msgs.map((msg, i) => (
-                        <Message key={i} msg={msg} user1={user1} />
-                      ))
-                    : null}
+                <div className={style.messageContainer}>
+
+                  <div className={style.message}>
+                    {msgs.length
+                      ? msgs.map((msg, i) => (
+                          <Message key={i} msg={msg} user1={user1} />
+                        ))
+                      : null}
+                  </div>
                 </div>
-                <MessageForm
-                  handleSubmit={handleSubmit}
-                  text={text}
-                  setText={setText}
-                  setImg={setImg}
-                />
+                  <MessageForm
+                    handleSubmit={handleSubmit}
+                    text={text}
+                    setText={setText}
+                    setImg={setImg}
+                  />
               </>
             ): (
             <div className={style.convo}>
