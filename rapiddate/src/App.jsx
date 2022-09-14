@@ -15,15 +15,15 @@ function App() {
         <BrowserRouter>
           <Routes>
           <Route path="/" element={<PrivateRoute />}>
-                <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
+          </Route>
+          <Route path="/messages" element={<PrivateRoute />}>
+            <Route path="/messages" element={<Messages />} />
           </Route>
             <Route exact path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/message" element={<Messages />} />
           </Routes>
-          {/* <PrivateRoute path="/" element={<Dashboard />} />
-          <PrivateRoute path="/messages" element={<Messages />} /> */}
-        </BrowserRouter> 
+        </BrowserRouter>          
     </div>
   )
 }

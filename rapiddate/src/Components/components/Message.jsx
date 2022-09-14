@@ -1,15 +1,14 @@
-import moment from "moment";
 import React, { useRef, useEffect } from "react";
-import Moment from "react-moment";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import style from '../../Pages/Messages/whatsapp.module.css'
 
 
 const Message = ({ msg, user1 }) => {
   const scrollRef = useRef();
-
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [msg]);
+
   const handleTime = () => {
     let data= new Date(msg.createdAt.toDate())
     let hrs = data.getHours()
@@ -21,26 +20,22 @@ const Message = ({ msg, user1 }) => {
     const postTime= hrs + ':' + mins
     return postTime
   }
-  handleTime()
+  const iconStyle={
+    width:'15px',
+    marginTop:"0px",
+    textAlign:"center",
+  }
   return (
-    <div
-      className={`message_wrapper ${msg.from === user1 ? "own" : ""}`}
-      ref={scrollRef}
-    > 
-      <div  className={`response ${msg.from === user1 ? "me" : "friend"}`}>
-        <div className="responseContainer">
-          <p className="textMessage"> 
-            {msg.text} 
-          <sub className="timeSent">
-            {handleTime()}
-            <DoneAllIcon style={{fontSize:"15px", marginLeft: "5px"}} className="doneIcon"/>
-          </sub>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    
+    <p 
+    ref={scrollRef} 
+    className={`${style.chatMessage} ${msg?.from === user1 ? style.chatSent : ''}`}>
+      {msg.text}
+      <span 
+      className={style.chatTimeStamp}>
+        {handleTime()}
+        {msg?.from === user1 ? <DoneAllIcon style={iconStyle} /> : ''}
+      </span>
+    </p>
   );
 };
 

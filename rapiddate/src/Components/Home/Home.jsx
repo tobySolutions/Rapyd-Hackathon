@@ -1,4 +1,4 @@
-import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from '../../database/firebase';
@@ -77,7 +77,6 @@ const Home = () => {
 
             {isLoading ? <Loading /> : 
             <CardContainer />
-            
             }
         </div>
     )

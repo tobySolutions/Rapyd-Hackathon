@@ -1,30 +1,30 @@
 import React from "react";
-import Attachment from "./svg/Attachment";
 import SendIcon from '@mui/icons-material/Send';
+import MoodIcon from '@mui/icons-material/Mood';
+import style from '../../Pages/Messages/whatsapp.module.css'
 
-const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
+const MessageForm = ({ handleSubmit, text, setText }) => {
+  const buttonStyle = {
+    border: 'none',
+    background:'transparent'
+  }
   return (
-    <form className="message_form" onSubmit={handleSubmit}>
-      <label htmlFor="img">
-        <Attachment />
-      </label>
-      <input
-        onChange={(e) => setImg(e.target.files[0])}
-        type="file"
-        id="img"
-        accept="image/*"
-        style={{ display: "none" }}
-      />
-      <div>
-        <input
-          type="text"
-          placeholder="Enter message"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-      </div>
-      <div>
-        <button className="btn"><SendIcon /></button>
+    <form action="" onSubmit={handleSubmit}>
+      <div className={style.messageFooter}>
+        <div className={style.footerInput}>
+          <div className={style.footerInputContainer}>
+              <MoodIcon className={style.footerIcon} />
+              <input 
+              type="text" 
+              placeholder='Type a Message' 
+              value={text}
+              onChange={(e) => setText(e.target.value)} 
+              />
+          </div>
+        </div>
+        <button style={buttonStyle}>
+          <SendIcon className={style.messageFooterIcon} />
+        </button>
       </div>
     </form>
   );

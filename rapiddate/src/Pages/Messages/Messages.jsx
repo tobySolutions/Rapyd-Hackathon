@@ -10,20 +10,20 @@ import {
   orderBy,
   setDoc,
   doc,
-  getDocs,
   getDoc,
   updateDoc,
 } from "firebase/firestore";
-import style from './Messages.module.css'
+import style from './whatsapp.module.css'
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import User from "../../Components/components/User";
 import MessageForm from "../../Components/components/MessageForm";
 import Message from "../../Components/components/Message";
-import './message.css'
 import { useSelector } from "react-redux";
 import { showUser } from "../../redux/User/UserSlice";
-import { BsArrowLeft, BsOption, BsSearch } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import {Link} from "react-router-dom"
 
 const Messages = () => {
   const [users, setUsers] = useState([]);
@@ -32,42 +32,35 @@ const Messages = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const [msgs, setMsgs] = useState([]);
-  const [pending, setPending] = useState([])
-  const [friends, setFriends] = useState([])
-  const [active, setActive] = useState(false)
-  const user = useSelector(showUser)
-  const user1 = user.uid
+  const [requests, setRequests] = useState([])
+
+  const userObj = useSelector(showUser)
+  const user1 = userObj.uid
 
   useEffect(() => {
     const usersRef = collection(db, "Users");
     const q = query(usersRef, where("uid", "!=", user1));
     const unsub = onSnapshot(q, (querySnapshot) => {
-      let users = []
+      let arr = []
       querySnapshot.forEach((doc) => {
-        users.push(doc.data())
+        arr.push(doc.data())
       });
-      setUsers(users )
+      setUsers(arr)
     });
     return () => unsub();
   }, [user1]);
-
   useEffect(() => {
-    const pendingRef = collection(db, "Pending", user1, "pending")
-    const friendRef = collection(db, "Friends", user1, "friends")
-    const getStates = (setState, ref) => {
-      const q = query(ref)
-      onSnapshot(q, (querySnapshot) => {
-        let arr = [];
-        querySnapshot.forEach((doc) => {
-          arr.push(doc.data());
-        });
-        setState(arr);
+    const requestRef = collection(db, "Request", user1, "requests" );
+    const q = query(requestRef);
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let arr = []
+      querySnapshot.forEach((doc) => {
+        arr.push(doc.data())
       });
-    }
-    getStates(setPending, pendingRef)
-    getStates(setFriends, friendRef)
-  }, [])
-    
+      setRequests(arr)
+    });
+    return () => unsub();
+  }, [user1]);
 
   const selectUser = async (user) => {
     setChat(user);
@@ -95,9 +88,6 @@ const Messages = () => {
     }
   };
 
-  const messageNewUser = async (user) => {
-      await addDoc(collection(db, "Pending", user1, "pending"), user);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -139,70 +129,63 @@ const Messages = () => {
   };
   return (
     <div className={style.chat}>
-      <div className={style.user}>  
-        <div className={style.heading}>
-          <BsArrowLeft />
-          <div className={style.img}></div>
-          {user.name}
-        </div>
-        <div className={style.body}>
-          <div onClick={() => setShowPending(!showPending)} className={style.pendingContainer}>
-            {showPending ? (
-              <div className={style.pending}>
-                <BsArrowLeft />
-                <p>Go Back</p>
-              </div>
-            ) :
-              <div className={style.pending}>
-                <p className={style.pendingText}>Pending Messages</p>
-                <div className={style.pendingNumber}>
-                  {pending.length}
-                </div>
-              </div>
-            }
+      <div className={style.sidebar}>  
+      {/* Header */}
+        <div className={style.header}>
+          <div className={style.chatheaderLeft}>
+            <Link to="/">
+              <KeyboardBackspaceIcon style={{width: "20px"}} className={style.icon} />
+            </Link>
+            <div className={style.avatar}></div>
           </div>
-          <div className={style.mainChat}>
-            {(showPending ? pending : users).map((user) => (
-              <User
-                key={user.uid}
-                user={user}
-                selectUser={selectUser}
-                user1={user1}
-                chat={chat}
-              />
-            ))}
+          <div className={style.chatheaderRight}>
+            <MoreVertIcon className={style.icon}  />
           </div>
         </div>
-      </div>
-      <div className={style.messages}>
-        {/* {console.log(chat, "Hey")} */}
+        {/* Search */}
+        <div className={style.sidebarSearch}>
+          <div className={style.sidebarSearchContainer}>
+            <BsSearch className={style.sidebarIcon} />
+            <input type="text" placeholder='Search for a Chat' />
+          </div>
+        </div>
+        {/* Chats */}
+        <div className={style.sidebarChats}>
+          {users.map((user) => (
+            <User
+              key={user.uid}
+              user={user}
+              selectUser={selectUser}
+              user1={user1}
+              chat={chat}
+            />
+          ))}
+        </div>
         
+      </div>
+      <div className={style.messageContainer}>
           {chat ? ( 
               <>
-                <div className={style.messageUser}>
-                  <div className={style.profile}>
-                    <div className={style.userImage}>
-                    </div>
-                    <div className={style.userContent}>
-                      <h3>{chat.name}</h3>
-                      <p>{chat.isOnline ? 'Online' : ''}</p>
-                    </div>
+                <div className={style.header}>
+                  <div className={style.chatTitle}>
+                      <div className={style.avatar}></div>
+                      <div className={style.messageHeaderContent}>
+                          <h4>{chat.name}</h4>
+                          <p>{chat.isOnline ? 'Online' : ''}</p>
+                      </div>
                   </div>
-                  <div className={style.icons}>
-                    <BsSearch />
-                    <MoreVertIcon />
+                  <div className={style.chatHeaderRight}>
+                      <BsSearch className={style.icon} />
+                      <MoreVertIcon className={style.icon} />
                   </div>
                 </div>
-                <div className={style.messageContainer}>
-
-                  <div className={style.message}>
+                  <div className={style.messageContent}>
                     {msgs.length
                       ? msgs.map((msg, i) => (
                           <Message key={i} msg={msg} user1={user1} />
                         ))
                       : null}
                   </div>
-                </div>
                   <MessageForm
                     handleSubmit={handleSubmit}
                     text={text}
@@ -212,7 +195,7 @@ const Messages = () => {
               </>
             ): (
             <div className={style.convo}>
-              <h3 className={style.emptyConvo}>Start a Conversation with people around you</h3>            
+              <h3 className={style.emptyConvo}>Start a Conversation with people around you</h3>   
             </div>
           )}
       </div>  

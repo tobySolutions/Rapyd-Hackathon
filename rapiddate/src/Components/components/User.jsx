@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import Img from "../image1.jpg";
 import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../../database/firebase";
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import style from '../../Pages/Messages/whatsapp.module.css'
 
 
 const User = ({ user1, user, selectUser, chat }) => {
@@ -15,36 +15,52 @@ const User = ({ user1, user, selectUser, chat }) => {
       setData(doc.data());
     });
     return () => unsub();
-  }, []);
+  }, [user1, user2]);
+
+  const firstLetterUpper = (string) => {
+    let newString = string
+      .toLowerCase()
+      .replace(/(^\s*\w|[\.\!\?]\s*\w)/g, function(c) {
+        return c.toUpperCase();
+      });
+    return newString;
+  }
+
+  const convertToSentenceCase = (string) => {
+    let newText = firstLetterUpper(string);
+    return newText
+  }
+  const handleTime = () => {
+    let date= new Date(data?.createdAt.toDate())
+    let hrs = date.getHours()
+    let mins = date.getMinutes()
+    if(hrs<=9)
+      hrs = '0' + hrs
+    if(mins<10)
+      mins = '0' + mins
+    const postTime= hrs + ':' + mins
+    return postTime
+  }
 
   return (
     <>
-      <div
-        className={`user_wrapper `}
-        onClick={() => selectUser(user)}
-      >
-        <div className="user_info">
-          <div className="user_detail">
-            <div className="avatar"></div>
-            {/* <img src={user.avatar || Img} alt="avatar" className="avatar" /> */}
-            <div className="sentMessage">
-              <h4>{user.name}</h4>
-              {data && (
-          <p className="truncate">
-            {data.from === user1 ? <DoneAllIcon style={{fontSize:".9rem"}} /> : null}
-            {data.text}
-          </p>
-        )}
-
-            </div>
-            
-          </div>
+      <div className={style.sidebarChat} onClick={() => selectUser(user)}>
+        <div className={style.chatAvatar}></div>
+        <div className={style.chatInfo}>
+            <h4>{convertToSentenceCase(user.name)}</h4>
+            <p>
+              {data?.from === user1 ? <DoneAllIcon style={{fontSize:".9rem"}} /> : null}
+              {data?.text}
+            </p>
         </div>
-        <div className="userStatus"></div>
-        <h4>2:30</h4>
-        {data?.from !== user1 && data?.unread && (
-          <small className="unread">1</small>
-        )}
+        <div className={style.time}>
+            <p>{data?.createdAt ? handleTime() : ''}</p>
+        </div>
+            <p>
+              {data?.from !== user1 && data?.unread && (
+                <p className={style.unread}>1</p>
+              )}
+            </p>
       </div>
     </>
   );

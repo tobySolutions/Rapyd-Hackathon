@@ -9,12 +9,14 @@ import {motion} from 'framer-motion'
 import { useState } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../database/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/Users/UsersSlice";
+import { showUser } from "../../redux/User/UserSlice";
 
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState('')
+  const user = useSelector(showUser)
   const dispatch = useDispatch()
   const [darkMode, setDarkMode] = useState(false)
 
@@ -69,7 +71,7 @@ const Navbar = () => {
             <div className={style.counter}>2</div>
           </motion.div>
           <motion.div  className={style.item}>
-            <p style={{marginRight: "20px"}}>Hi Grace</p>
+            <p style={{marginRight: "20px"}}>Hi {user.name}</p>
             <motion.img
               whileHover={{scale:1.1}}
               whileTap={{scale:0.7}}
