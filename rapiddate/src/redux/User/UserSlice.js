@@ -7,7 +7,7 @@ const customizedMiddleware = getDefaultMiddleware({
 
 const data = localStorage.getItem('user')
 const initialState = {
-    user: data ? JSON.parse(data) : {}
+    user: data && JSON.parse(data) 
 }
 
 export const userSlice = createSlice({
