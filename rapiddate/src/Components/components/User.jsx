@@ -47,7 +47,7 @@ const User = ({ user1, user, selectUser, chat }) => {
       <div className={style.sidebarChat} onClick={() => selectUser(user)}>
         <div className={style.chatAvatar}></div>
         <div className={style.chatInfo}>
-            <h4>{convertToSentenceCase(user.name)}</h4>
+            <h4>{user.name ? convertToSentenceCase(user.name) : ''}</h4>
             <p>
               {data?.from === user1 ? <DoneAllIcon style={{fontSize:".9rem"}} /> : null}
               {data?.text}

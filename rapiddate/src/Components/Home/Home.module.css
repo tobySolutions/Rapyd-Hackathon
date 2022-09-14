@@ -15,10 +15,15 @@
     gap:.5em;
     padding:.3em .7em;
     border: 1px solid #999;
-    border-radius:20px;
+    border-radius:10px;
     color:#888;
 }
-
+.headerContainer{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap:2em;
+}
 input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -28,7 +33,7 @@ input[type="checkbox"] {
   width: 13px;
   height: 13px;
   background-color: #888;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 input[type="checkbox"]:checked {

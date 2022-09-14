@@ -12,6 +12,7 @@ import {
   doc,
   getDoc,
   updateDoc,
+  getDocs,
 } from "firebase/firestore";
 import style from './whatsapp.module.css'
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -27,37 +28,24 @@ import {Link} from "react-router-dom"
 
 const Messages = () => {
   const [users, setUsers] = useState([]);
-  const [showPending, setShowPending] = useState(false)
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const [msgs, setMsgs] = useState([]);
-  const [requests, setRequests] = useState([])
 
   const userObj = useSelector(showUser)
   const user1 = userObj.uid
 
+  // Gets List of all Users who are Friends with the Current User
   useEffect(() => {
-    const usersRef = collection(db, "Users");
-    const q = query(usersRef, where("uid", "!=", user1));
+    const usersRef = collection(db, "Friends",user1, "Friends");
+    const q = query(usersRef,where("friendStatus", "==", true));
     const unsub = onSnapshot(q, (querySnapshot) => {
       let arr = []
       querySnapshot.forEach((doc) => {
         arr.push(doc.data())
       });
       setUsers(arr)
-    });
-    return () => unsub();
-  }, [user1]);
-  useEffect(() => {
-    const requestRef = collection(db, "Request", user1, "requests" );
-    const q = query(requestRef);
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      let arr = []
-      querySnapshot.forEach((doc) => {
-        arr.push(doc.data())
-      });
-      setRequests(arr)
     });
     return () => unsub();
   }, [user1]);
@@ -151,7 +139,7 @@ const Messages = () => {
         </div>
         {/* Chats */}
         <div className={style.sidebarChats}>
-          {users.map((user) => (
+          {users?.map((user) => (
             <User
               key={user.uid}
               user={user}
@@ -180,7 +168,7 @@ const Messages = () => {
                   </div>
                 </div>
                   <div className={style.messageContent}>
-                    {msgs.length
+                    {msgs?.length
                       ? msgs.map((msg, i) => (
                           <Message key={i} msg={msg} user1={user1} />
                         ))

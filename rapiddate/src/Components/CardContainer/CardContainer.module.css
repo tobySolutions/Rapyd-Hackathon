@@ -1,6 +1,8 @@
 .cardContainer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    word-wrap: wrap;
+    gap:2em;
     margin-top: 2em;
     /* height: 75vh;
     overflow: scroll; */

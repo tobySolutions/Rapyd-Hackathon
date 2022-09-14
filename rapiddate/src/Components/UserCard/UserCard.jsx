@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import profile from './tolu.png'
 import style from './UserCard.module.css'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, where } from "firebase/firestore";
 import { db } from "../../database/firebase";
 import { useSelector } from "react-redux";
 import { showUser } from "../../redux/User/UserSlice";
@@ -15,7 +15,7 @@ const UserCard = ({user}) => {
   const [change, setChange] = useState(false)
   const sendRequest = async () => {
     setLoading(true)
-    await addDoc(collection(db, "Friends", user.uid, "Friends"), {...mainUser, friendStatus: "pending"});
+    await setDoc(doc(db, "Friends", user.uid, "Friends", mainUser.uid), {...mainUser, friendStatus: "pending"});
     setLoading(false)
     setDisabled(true)
   }
@@ -28,7 +28,7 @@ const UserCard = ({user}) => {
       querySnapshot.forEach((doc) => {
         arr.push(doc.data())
       });
-       setRequests(arr)
+      setRequests(arr)
       requests?.map((request) => {
         if(request.uid === mainUser.uid){
           console.log(request.uid, mainUser.uid)
@@ -42,26 +42,6 @@ const UserCard = ({user}) => {
     }
     test()
   }, [])
-//   const getAllUsers = async () => {
-//   const q = query(userRef);
-//   const querySnapshot = await getDocs(q);
-  // querySnapshot.forEach((doc) => {
-  //   setAllUsers(allUsers => [...allUsers,{
-  //     [doc.id]: doc.data()
-  //   }] )
-  // });
-// }
-
-// const getParticularUser = async (uid) => {
-//   const docRef = doc(userRef, uid);
-//   const docSnap = await getDoc(docRef);
-//   if (docSnap.exists()) {
-//     setCurrentUser({...currentUser, response:docSnap.data()})
-//   } else {
-//     setCurrentUser({...currentUser, error: "No Such User Founc"})
-//   }
-// }
-
 
     return (
       <div className={style.card__new}>

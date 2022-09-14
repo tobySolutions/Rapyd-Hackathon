@@ -12,11 +12,14 @@ const Sidebar = () => {
     const navigate = useNavigate()
     const user = useSelector(showUser)
     const handleLogout = async () => {
-        localStorage.setItem('user', '')
-        await updateDoc(doc(db, 'Users', user.uid), {
+        updateDoc(doc(db, 'Users', user.uid), {
+            ...user,
             isOnline:false
-        })
-        navigate("/login")
+        }).then(() =>{
+            localStorage.setItem('user', '')
+            navigate("/")
+            window.location.reload()
+        }).catch((error) => console.log(error))
     }
     
     return (
@@ -52,8 +55,7 @@ const Sidebar = () => {
                 </div>
                 <div className={style.center}>
                     <ul>
-                        <Link 
-                            to="/login" 
+                        <p 
                             style={{ textDecoration: "none",color: '#888' }}
                             onClick={handleLogout}
                         >
@@ -61,7 +63,7 @@ const Sidebar = () => {
                                 <LogoutIcon className={style.icon} />
                                 <span>Logout</span>
                             </li>
-                        </Link>
+                        </p>
                         
                     </ul>
                 </div>
