@@ -3,6 +3,9 @@ import Register from './Register/Register'
 import Login from './Login/Login'
 import './Authentication.css'
 import logs from './img/log.svg'
+import date from '../../assets/date.webp'
+import date1 from '../../assets/date2.png'
+import date2 from '../../assets/date3.png'
 import registers from './img/register.svg'
 
 
@@ -29,7 +32,7 @@ const Authenticate = () => {
                 Sign up
               </button>
             </div>
-            <img src={logs} className='image' alt='' />
+            <img src={date2} className='image' alt='' />
           </div>
           <div className='panel right-panel'>
             <div className='content'>
@@ -42,7 +45,7 @@ const Authenticate = () => {
                 Sign in
               </button>
             </div>
-            <img src={registers} className='image' alt='' />
+            <img src={date1} className='image' alt='' />
           </div>
         </div>
       </div>
