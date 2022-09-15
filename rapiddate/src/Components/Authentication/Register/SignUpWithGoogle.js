@@ -1,9 +1,10 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { db,auth } from "../../database/firebase";
-import { Timestamp, doc, setDoc } from "firebase/firestore"; 
+import { db,auth } from "../../../database/firebase";
+import { Timestamp, setDoc, doc, } from "firebase/firestore"; 
 
-const signInWithGoogle = async (user ) => {
+const signUpWithGoogle = async (user ) => {
     const provider = new GoogleAuthProvider()
+    let resultObj = {error: null}
     try {
         const result = await signInWithPopup(auth, provider)
         const {uid, displayName,email,photoURL} = result.user
@@ -17,10 +18,10 @@ const signInWithGoogle = async (user ) => {
         }
         await setDoc(doc(db, "Users", result.user.uid), dbResult);
         localStorage.setItem('user', JSON.stringify(dbResult))
-
-    } catch (error) {
-        console.log(error)
+    } catch (err) {
+        resultObj = {...resultObj, error:err.message}
+        return resultObj
     }
-    return user
+
 }
-export default signInWithGoogle
+export default signUpWithGoogle

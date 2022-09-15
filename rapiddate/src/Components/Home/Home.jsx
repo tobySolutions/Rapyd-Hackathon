@@ -13,6 +13,8 @@ import style from './Home.module.css'
 
 const Home = () => {
     const dispatch = useDispatch()
+    
+    /// A state
     const mainUser = useSelector(showUser)
     const [isLoading, setIsLoading] = useState(false)
     const [onlineChecked, setOnlineChecked] = useState(false)
@@ -67,7 +69,7 @@ const Home = () => {
                     <div style={{width: "70%"}}>
                         <div className={style.headerContainer}>
                             <div className={style.filters}>
-                                
+
                             </div>
                             <div className={style.onlineButton}>
                                 <input 

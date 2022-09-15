@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import signInWithGoogle from "../GoogleAuth";
 import emailAuth from "./EmailAuth";
+import GoogleIcon from '@mui/icons-material/Google'
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import MailIcon from '@mui/icons-material/Mail';
+import signUpWithGoogle from "./SignUpWithGoogle";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -25,50 +29,66 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setData({...data, loading: true})
-    await emailAuth(setData, data)
-    window.location.reload()
+    emailAuth(setData, data)
+    .then(() => {
+      if(error === null ){
+        window.location.reload()
+      }
+      setData({...data, loading:false})
+    })
   };
-  const handleGoogle = async () => {
-    await signInWithGoogle()
+  const handleReloadAndClear = () => {
     window.location.reload()
+    setTimeout(() => {
+      setData({
+        email: '',
+        password: '',
+        error: null,
+        loading: false
+      })
+    }, 2000)
+    setData({...data, loading:false})
+  }
+  const handleGoogle = async () => {
+    signUpWithGoogle()
+    .then(() => {
+      handleReloadAndClear()
+    })
   }
   return (
-    <section>
-      <h3>Create An Account</h3>
-      <form className="form" onSubmit={handleSubmit}>
-        <div className="input_container">
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={name} onChange={handleChange} />
+    <form action="#" className="sign-up-form" onSubmit={handleSubmit}>
+        <h2 className="title">Sign up</h2>
+        <div className="input-field">
+          <PersonIcon className='user' />
+          <input type="text" name="name" value={name} onChange={handleChange} placeholder="Name" />
         </div>
-        <div className="input_container">
-          <label htmlFor="email">Email</label>
+        <div className="input-field">
+          <MailIcon className="user" />
           <input
             type="text"
+            placeholder="Email"
             name="email"
             value={email}
             onChange={handleChange}
           />
         </div>
-        <div className="input_container">
-          <label htmlFor="password">Password</label>
+        <div className="input-field">
+          <LockIcon className='user' />
           <input
             type="password"
             name="password"
+            placeholder="Password"
             value={password}
             onChange={handleChange}
           />
         </div>
-        or
-
-        {error ? <p className="error">{error}</p> : null}
-        <div className="btn_container">
-          <button className="btn" disabled={loading}>
-            {loading ? "Creating ..." : "Register"}
-          </button>
-        </div>
+        {error ? <p className='error'>{error}</p> : null}
+        <button className="btn" disabled={loading}>{loading ? 'Creating ...' : 'SignUp'}</button>
+        <p className='social-text'>Or Sign up with Google</p>
+        <p className="social-icon" onClick={handleGoogle}>
+          <GoogleIcon />
+        </p>
       </form>
-        <button onClick={handleGoogle}>Sign in with Google</button>
-    </section>
   );
 };
 

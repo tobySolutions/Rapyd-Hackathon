@@ -1,6 +1,11 @@
-import React, { useState } from 'react'
-import signInWithGoogle from '../GoogleAuth'
+import React, {  useState } from 'react'
 import emailAuthLogin from './emailAuthLogin'
+import GoogleIcon from '@mui/icons-material/Google'
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../database/firebase';
+import signInWithGoogle from './SignInWithGoogle';
 
 const Login = () => {
   const [data, setData] = useState({
@@ -16,63 +21,89 @@ const Login = () => {
       [e.target.name]: e.target.value
     })
   }
+  const handleReloadAndClear = () => {
+    window.location.reload()
+    setTimeout(() => {
+      setData({
+        email: '',
+        password: '',
+        error: null,
+        loading: false
+      })
+    }, 2000)
+    setData({...data, loading:false})
+  }
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setData({ ...data, loading: true })
-    emailAuthLogin(setData, data)
-      .then(() => {
-        window.location.reload()
-        setTimeout(() => {
-          setData({
-            email: '',
-            password: '',
-            error: null,
-            loading: false
+      emailAuthLogin(data)
+      .then((res) => {
+        if(res.error === null){
+          verifyUser(res)
+          .then(() => {
+            handleReloadAndClear()
           })
-        }, 2000)
+        }else{
+          setData({...data, error:res.error, loading: false})
+        } 
       })
-      .catch(error => console.log(error))
   }
-  const handleGoogle = () => {
+  const verifyUser = async({data}) => {
+    const userRef = collection(db, "Users");
+    console.log(data)
+    const docRef = doc(userRef, data.user.uid);
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log(docSnap.data())
+        await updateDoc(doc(db, 'Users', data.user.uid), { isOnline: true})
+        localStorage.setItem('user', JSON.stringify(docSnap.data()))
+      }
+    } catch (err) {
+      return err
+    }
+  }
+  const handleGoogle =  () => {
     signInWithGoogle()
-      .then(() => {
-        window.location.reload()
-      })
-      .catch(error => console.log(error))
+    .then((res) => {
+      if(res.error === null){
+        handleReloadAndClear()
+      }else{
+        setData({...data, error:res.error})
+      }
+    })
   }
   return (
-    <section>
-      <h3>Log into your Account</h3>
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='input_container'>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='text'
-            name='email'
-            value={email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className='input_container'>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            name='password'
-            value={password}
-            onChange={handleChange}
-          />
-        </div>
-
-        {error ? <p className='error'>{error}</p> : null}
-        <div className='btn_container'>
-          <button className='btn' disabled={loading}>
-            {loading ? 'Logging in ...' : 'Login'}
-          </button>
-        </div>
-      </form>
-      <button onClick={handleGoogle}>Sign In with Google</button>
-    </section>
+    <form className='sign-in-form' onSubmit={handleSubmit}>
+      <h2 className='title'>Sign in</h2>
+      <div className='input-field'>
+        <PersonIcon className='user' />
+        <input
+          type='text'
+          placeholder="Email"
+          name='email'
+          value={email}
+          onChange={handleChange}
+        />
+      </div>
+      <div className='input-field'>
+        <LockIcon className='user' />
+        <input
+          type='password'
+          placeholder='Password'
+          name='password'
+          value={password}
+          onChange={handleChange}
+        />
+      </div>
+      {error ? <p className='error'>{error}</p> : null}
+      <button className="btn solid" disabled={loading}>{loading ? 'Logging in ...' : 'Login'}</button>
+      <p className='social-text'>Or Sign in with Google</p>
+      <p className="social-icon" onClick={handleGoogle}>
+        <GoogleIcon />
+      </p>
+    </form>
   )
 }
 

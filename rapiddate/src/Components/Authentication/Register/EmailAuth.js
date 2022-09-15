@@ -1,7 +1,9 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../../database/firebase'
 import { setDoc, doc, Timestamp } from 'firebase/firestore'
-
+/**
+  * Takes in Data from the Login Page and then computes to add the user to the database
+*/
 const emailAuth = async (setData, data) => {
   const { name, email, password } = data
   if (!name || !email || !password) {
@@ -22,7 +24,6 @@ const emailAuth = async (setData, data) => {
         email: '',
         password: '',
         error: null,
-        loading: false
       })
       localStorage.setItem('user', JSON.stringify(dbResult))
     } catch (err) {
