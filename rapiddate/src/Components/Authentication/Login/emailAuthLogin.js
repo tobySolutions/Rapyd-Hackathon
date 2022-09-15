@@ -31,7 +31,6 @@ const emailAuthLogin = async (setData, data, history) => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password)
       const { uid, name, photoURL } = result.user
-      console.log(result.user)
       const dbResult = {
         uid: uid,
         name,

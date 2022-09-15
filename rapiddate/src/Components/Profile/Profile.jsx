@@ -1,12 +1,10 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux'
-// import {useCookies} from 'react-cookie'
 import {useNavigate} from 'react-router-dom'
 import './profile.css'
 
 const Profile = () => {
     const dispatch = useDispatch()
-    // const [cookies, setCookie, removeCookie] = useCookies(null)
 
     const [formData, setFormData] = useState({
         // user_id: cookies.UserId,

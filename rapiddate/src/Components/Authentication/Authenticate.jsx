@@ -2,11 +2,8 @@ import React, { useState } from 'react'
 import Register from './Register/Register'
 import Login from './Login/Login'
 import './Authentication.css'
-import logs from './img/log.svg'
-import date from '../../assets/date.webp'
 import date1 from '../../assets/date2.png'
 import date2 from '../../assets/date3.png'
-import registers from './img/register.svg'
 
 
 const Authenticate = () => {
