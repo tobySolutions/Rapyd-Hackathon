@@ -8,52 +8,37 @@ import signUpWithGoogle from "./SignUpWithGoogle";
 
 const Register = () => {
   const [data, setData] = useState({
-    name: '',
-    email: "",
-    password: "",
-    error: null,
-    loading: false,
+    name: '',email: "",password: "",error: null,loading: false
   });
-  const { 
-    name, 
-    email, 
-    password, 
-    error, 
-    loading 
-  } = data;
-
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setData({...data, loading: true})
-    emailAuth(setData, data)
-    .then(() => {
-      if(error === null ){
-        window.location.reload()
-      }
-      setData({...data, loading:false})
+  const { name, email, password, error, loading } = data;
+  const handleChange = e => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
     })
-  };
+  }
   const handleReloadAndClear = () => {
     window.location.reload()
     setTimeout(() => {
       setData({
-        email: '',
-        password: '',
-        error: null,
-        loading: false
+        email: '',password: '',error: null,loading: false
       })
     }, 2000)
     setData({...data, loading:false})
   }
-  const handleGoogle = async () => {
-    signUpWithGoogle()
-    .then(() => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setData({...data, loading: true})
+    const response = await emailAuth(data)
+    if(response.error === null){
       handleReloadAndClear()
-    })
+    }else{
+      setData({...data, error:response.error, loading:false})
+    }
+  };
+  const handleGoogle = async () => {
+    await signUpWithGoogle()
+    handleReloadAndClear()
   }
   return (
     <form action="#" className="sign-up-form" onSubmit={handleSubmit}>

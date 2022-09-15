@@ -59,7 +59,7 @@
 }
 
 .onboarding form input[type=radio]:checked + label {
-    border: solid 2px rgb(221, 39, 22);
+    border: solid 2px #0000FF;
 }
 
 .onboarding form input[type=submit]:hover {
@@ -67,7 +67,7 @@
 }
 
 .onboarding form input[type=submit]:active {
-    background-color: rgb(226, 115, 115);
+    background-color: #0000FF;
 }
 
 .onboarding form .photo-container img {

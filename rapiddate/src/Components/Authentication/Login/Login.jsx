@@ -37,26 +37,20 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setData({ ...data, loading: true })
-      emailAuthLogin(data)
-      .then((res) => {
-        if(res.error === null){
-          verifyUser(res)
-          .then(() => {
-            handleReloadAndClear()
-          })
-        }else{
-          setData({...data, error:res.error, loading: false})
-        } 
-      })
+    const response = await emailAuthLogin(data)
+    if(response.error === null){
+      await verifyUser(response)
+      handleReloadAndClear()
+    }else{
+      setData({...data, error:response.error, loading: false})
+    }
   }
   const verifyUser = async({data}) => {
     const userRef = collection(db, "Users");
-    console.log(data)
     const docRef = doc(userRef, data.user.uid);
     try {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log(docSnap.data())
         await updateDoc(doc(db, 'Users', data.user.uid), { isOnline: true})
         localStorage.setItem('user', JSON.stringify(docSnap.data()))
       }
@@ -65,14 +59,12 @@ const Login = () => {
     }
   }
   const handleGoogle =  () => {
-    signInWithGoogle()
-    .then((res) => {
-      if(res.error === null){
-        handleReloadAndClear()
-      }else{
-        setData({...data, error:res.error})
-      }
-    })
+    const response = signInWithGoogle()
+    if(response.error === null){
+      handleReloadAndClear()
+    }else{
+      setData({...data, error:response.error, loading:false})
+    }
   }
   return (
     <form className='sign-in-form' onSubmit={handleSubmit}>
