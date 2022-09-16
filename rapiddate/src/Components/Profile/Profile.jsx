@@ -31,36 +31,41 @@ const Profile = () => {
   return (
     <div className={style.form}>
       <div className={style.formContainer}>
+      <div className={style.logo}>
+        Rapyd
+      </div>
         <form>
           <section className={style.formContent}>
-            <div className={style.inputBox}>
-              <label htmlFor='first_name'>First Name</label>
-              <input
-                id='first_name'
-                type='text'
-                name='first_name'
-                placeholder='First Name'
-                required={true}
-                value={formData.first_name}
-                onChange={handleChange}
-              />
-            </div>
-            <div className={style.inputBox}>
-              <label htmlFor='first_name'>Last Name</label>
-              <input
-                id='last_name'
-                type='text'
-                name='last_name'
-                placeholder='Last Name'
-                required={true}
-                value={formData.last_name}
-                onChange={handleChange}
-              />
+            <div className={style.name}>
+              <div className={style.inputBox}>
+                <label htmlFor='first_name'>First Name</label>
+                <input
+                  id='first_name'
+                  type='text'
+                  name='first_name'
+                  placeholder='First Name'
+                  required={true}
+                  value={formData.first_name}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className={style.inputBox}>
+                <label htmlFor='first_name'>Last Name</label>
+                <input
+                  id='last_name'
+                  type='text'
+                  name='last_name'
+                  placeholder='Last Name'
+                  required={true}
+                  value={formData.last_name}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
             <div className={style.inputBox}>
               <label>Birthday</label>
-              <div className='multiple-input-container'>
+              <div className={style.multipleInputContainer}>
                 <input
                   id='dob_day'
                   type='number'
@@ -95,7 +100,7 @@ const Profile = () => {
 
             <div className={style.inputBox}>
               <label>Gender</label>
-              <div className='multiple-input-container'>
+              <div className={style.multipleInputContainer}>
                 <input
                   id='man-gender-identity'
                   type='radio'

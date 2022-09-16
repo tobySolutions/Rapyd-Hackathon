@@ -12,7 +12,7 @@ function App () {
 
   return (
     <div className='App'>
-      {!user?.uid ? (
+      {/* {!user?.uid ? (
         // If the user id does not exist, the page should take them to the authentication page
         <Authenticate />
       ) : (
@@ -35,7 +35,8 @@ function App () {
           </BrowserRouter>
 
         )
-      )}
+      )} */}
+      <Profile />
     </div>
   )
 }
