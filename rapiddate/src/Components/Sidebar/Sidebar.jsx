@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { showUser } from '../../redux/User/UserSlice'
 import { BsArrowLeft } from 'react-icons/bs'
 import { toggleMenu } from '../../redux/Menu/MenuSlice'
+import { useState } from 'react'
 
 const Sidebar = () => {
   const dispatch = useDispatch()
@@ -25,6 +26,11 @@ const Sidebar = () => {
       })
       .catch(error => console.log(error))
   }
+  const [selected, setSelected] = useState(false)
+  const handleSelection = () => {
+    
+  }
+  
 
   return (
     <div className={style.sidebar}>
@@ -56,9 +62,9 @@ const Sidebar = () => {
                   key={id}
                   to={route}
                   style={{ textDecoration: 'none', color: '#888' }}
-                  // onClick={navigate(route)}
                 >
                   <li
+                    onClick={handleSelection}
                     className={`${style.listItem} ${
                       selected ? style.selected : ''
                     }`}

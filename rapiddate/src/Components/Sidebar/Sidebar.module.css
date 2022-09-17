@@ -7,10 +7,15 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 90;
   height: 100vh;
 
 }
+@media screen and (max-width: 800px) {
+  .sidebar{
+    z-index: 9;
+  }
+}
+
 .top{
   display: flex;
 }

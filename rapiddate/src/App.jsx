@@ -44,11 +44,11 @@ function App () {
       </BrowserRouter> */}
       <>
       <Dashboard />
-        <BrowserRouter>
+        {/* <BrowserRouter>
             <Routes>
                 <Route path='/messages' element={<Messages />} />
             </Routes>
-        </BrowserRouter>
+        </BrowserRouter> */}
       </>
     </div>
   )

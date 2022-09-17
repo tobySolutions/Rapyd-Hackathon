@@ -6,13 +6,15 @@ import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, wh
 import { db } from "../../database/firebase";
 import { useSelector } from "react-redux";
 import { showUser } from "../../redux/User/UserSlice";
+import UserModal from "../UserModal/UserModal";
+
 
 const  UserCard = ({user}) => {
   const mainUser = useSelector(showUser)
+  const [showModal, setShowModal] = useState()
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(false)
   const [requests, setRequests] = useState([])
-  const [change, setChange] = useState(false)
   const sendRequest = async () => {
     setLoading(true)
     await setDoc(doc(db, "Friends", user.uid, "Friends", mainUser.uid), {...mainUser, friendStatus: "pending"});
@@ -46,17 +48,30 @@ const  UserCard = ({user}) => {
     backgroundImage: profile,
     backgroundSize: 'cover',
     backgroundPostion:'center',
+    position:'relative'
+  }
+  const handleShowMessage=() => {
+    setShowModal(true)
+  }
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   return (
     <div className={style.card_new} style={styles} >
       <div className={`${style.onlineStatus} ${user.isOnline ? style.online : style.notOnline}`}></div>
-      <RemoveRedEyeIcon className={style.icon} />
+      <RemoveRedEyeIcon onClick={handleShowMessage} className={style.icon} />
       <img src={profile} className={style.profileImage} alt='profile' />
       <div className={style.userInfo}>
         <p>Susan</p>
         <p>18</p>
       </div>
+      {showModal ? (
+        <UserModal onClose={handleCloseModal}>
+          This is the modal message
+          <button onClick={sendRequest} disabled={disabled}>{loading ? 'Connecting.....' : 'Send Request'}</button>
+        </UserModal>
+      ): ''}
     </div>
 
   )
