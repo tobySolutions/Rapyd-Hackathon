@@ -7,7 +7,7 @@ import { db } from "../../database/firebase";
 import { useSelector } from "react-redux";
 import { showUser } from "../../redux/User/UserSlice";
 
-const UserCard = ({user}) => {
+const  UserCard = ({user}) => {
   const mainUser = useSelector(showUser)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(false)
@@ -40,33 +40,26 @@ const UserCard = ({user}) => {
         }
       })
     }
-    test()
+    // test()
   }, [])
+  const styles = {
+    backgroundImage: profile,
+    backgroundSize: 'cover',
+    backgroundPostion:'center',
+  }
 
-    return (
-      <div className={style.card__new}>
-        
-        <div className={`${style.onlineStatus} ${user.isOnline ? style.online : style.notOnline}`}></div>
-        <RemoveRedEyeIcon className={style.icon} />
-        <div className={style.imgBx}>
-          <img src={profile} alt="" />
-        </div>
-        <div className={style.content}>
-          <div className={style.details}>
-            <h2>
-              Alina Smith <br />
-              <span> Senior UI/UX Designer</span>
-            </h2>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam molestias fugiat earum!</p>
-            <div className={`${disabled ? '' : style.actionBtn}`}>
-              <button onClick={sendRequest} disabled={disabled}>
-                {disabled ? 'Request Sent' : 'Send Request'}
-                </button>
-            </div>
-          </div>
-        </div>
+  return (
+    <div className={style.card_new} style={styles} >
+      <div className={`${style.onlineStatus} ${user.isOnline ? style.online : style.notOnline}`}></div>
+      <RemoveRedEyeIcon className={style.icon} />
+      <img src={profile} className={style.profileImage} alt='profile' />
+      <div className={style.userInfo}>
+        <p>Susan</p>
+        <p>18</p>
       </div>
-    )
+    </div>
+
+  )
 }
 
 export default UserCard

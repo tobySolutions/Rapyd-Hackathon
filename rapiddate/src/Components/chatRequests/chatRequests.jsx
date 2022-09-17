@@ -21,16 +21,16 @@ const ChatRequests = () => {
         });
         return () => unsub();
     }, [user]);
-  return (
-    <div>
-        <h2>Chat Requests</h2>
-        {chatRequests?.map((userObj) => {
-            return (
-                <ChatRequest key={userObj.uid} user2={userObj} />
-            )
-        })}
-    </div>
-  )
+    return (
+        <div>
+            <h2 style={{color:'grey'}}>Chat Requests</h2>
+            {chatRequests?.map((userObj) => {
+                return (
+                    <ChatRequest key={userObj.uid} user2={userObj} />
+                )
+            })}
+        </div>
+    )
 }
 
 export default ChatRequests

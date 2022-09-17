@@ -66,7 +66,7 @@ const Home = () => {
                 <h1 className={style.head}>Explore</h1>
                 </div>
                 <div className={style.headerContainer}>
-                    <div style={{width: "70%"}}>
+                    <div style={{width: "60%"}}>
                         <div className={style.headerContainer}>
                             <div className={style.filters}>
 
@@ -87,7 +87,7 @@ const Home = () => {
                         <CardContainer />
                         }
                     </div>
-                    <div style={{width: "25%"}}><ChatRequests /></div>
+                    <div style={{width: "30%"}}><ChatRequests /></div>
                 </div>
 
         </div>

@@ -1,84 +1,36 @@
 
-.body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(45deg, #fbda61, #ff5acd);
-
-}
-.card__new {
+.card_new {
     position: relative;
-    width: 200px;
-    height: 190px;
+    width: 160px;
+    height: 200px;
     background-color: #fff;
-    border-radius: 20px; 
+    border-radius: 10px; 
     box-shadow: 0 35px 80px rgba(0,0,0,0.15);
     transition: 0.5s;
     margin-bottom: 2em;
+    cursor: pointer;
 }
-.card__new:hover {
-    height: 300px;
+.card_new:hover {
+    height: 220px;
+    width: 170px;
 }
-.imgBx {
-    position: absolute;
-    left: 50%;
-    top: -20px;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    background: #000;
-    border-radius: 20px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.35);
-    overflow: hidden;
-    transition: 0.5s;
-}
-.card__new:hover .imgBx {
-    width: 150px;
-    height: 150px;
-}
-.imgBx img {
-    position: absolute;
-    top: 0;
-    left: 0;
+.profileImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-.content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    border-radius: 10px;
     overflow: hidden;
-}
-.details {
-    padding: 40px;
-    text-align: center;
-    width: 100%;
     transition: 0.5s;
-    transform: translateY(150px);
 }
-.card__new:hover .content .details {
-    transform: translateY(30px);
+.userInfo{
+    position: absolute;
+    left: 15px;
+    font-size: 13px;
+    bottom: 15px;
+    color: white;
+    opacity: .8;
 }
-.details h2 {
-    font-size: .9rem;
-    font-weight: 600;
-    color: #555;
-    line-height: 1.2em;
-    margin-bottom: 1em;
-}
-.details p{
-    font-size: .6rem;
-}
-.details h2 span {
-    font-size: 0.75em;
-    font-weight: 500;
-    opacity: 0.5;
-}
+
 .onlineStatus{
     border-radius: 50%;
     width: 8px;
@@ -101,49 +53,4 @@
     right: 5%;
     z-index:40;
 }
-.card__new:hover .icon {
-    bottom:10%;
-}
-.details .data {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-}
-.data h3 {
-    font-size: 1em;
-    color: #555;
-    line-height: 1.2em;
-    font-weight: 600;
-}
-.data h3 span {
-    font-size: 0.85em;
-    font-weight: 400;
-    opacity: 0.5;
-}
 
-.actionBtn button {
-    padding: 5px 20px;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    font-size: .7em;
-    font-weight: 500;
-    background-color: #ff5f95;
-    color: #fff;
-    cursor: pointer;
-    margin-top: .7em;
-}
-.actionBtn button:nth-child(2) {
-    border: 1px solid #999;
-    color: #999;
-    background-color: #fff;
-}
-.actionBtn button span:hover {
-    background-color: red;
-    width: 0;
-    height: 100%;
-    position: absolute;
-    left: -5%;
-    transform: .3s ease-in-out all;
-    transform: skew(-10deg);
-}

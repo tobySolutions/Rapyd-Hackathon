@@ -37,6 +37,11 @@ function App () {
         )
       )} */}
       <Profile />
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter> */}
     </div>
   )
 }

@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import MailIcon from '@mui/icons-material/Mail';
 import signUpWithGoogle from "./SignUpWithGoogle";
+import style from '../Auth.module.css'
 
 const Register = () => {
   const [data, setData] = useState({
@@ -29,7 +30,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setData({...data, loading: true})
-    const response = await emailAuth(data)
+    const response = emailAuth(data)
     if(response.error === null){
       handleReloadAndClear()
     }else{
@@ -41,7 +42,7 @@ const Register = () => {
     handleReloadAndClear()
   }
   return (
-    <form action="#" className="sign-up-form" onSubmit={handleSubmit}>
+    <form action="#" className={`sign-up-form ${style.form} `} onSubmit={handleSubmit}>
         <h2 className="title">Sign up</h2>
         <div className="input-field">
           <PersonIcon className='user' />

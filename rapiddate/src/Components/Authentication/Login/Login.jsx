@@ -6,6 +6,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../database/firebase';
 import signInWithGoogle from './SignInWithGoogle';
+import style from '../Auth.module.css'
+
 
 const Login = () => {
   const [data, setData] = useState({
@@ -67,7 +69,7 @@ const Login = () => {
     }
   }
   return (
-    <form className='sign-in-form' onSubmit={handleSubmit}>
+    <form className={`sign-in-form ${style.form} `}onSubmit={handleSubmit}>
       <h2 className='title'>Sign in</h2>
       <div className='input-field'>
         <PersonIcon className='user' />
