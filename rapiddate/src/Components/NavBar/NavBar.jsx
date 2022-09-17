@@ -3,7 +3,7 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import { BsSearch } from "react-icons/bs";
+import { BsOption, BsSearch } from "react-icons/bs";
 import style from './Navbar.module.css'
 import {motion} from 'framer-motion'
 import { useState } from "react";
@@ -12,6 +12,7 @@ import { db } from "../../database/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/Users/UsersSlice";
 import { showUser } from "../../redux/User/UserSlice";
+import { toggleMenu } from "../../redux/Menu/MenuSlice";
 
 
 const Navbar = () => {
@@ -33,9 +34,15 @@ const Navbar = () => {
     setSearchValue('')
     return () => unsub();
   }
+  const handleToggle = () => {
+    dispatch(toggleMenu(true))
+  }
   return (
     <div className={style.navbar}>
-      <div className={style.wrapper}>          
+      <div className={style.wrapper}> 
+        <div className={style.hamburger} onClick={handleToggle}>
+          <BsOption  />       
+          </div>  
           <div className={style.nav_search}>
             <input 
               className={style.nav_input} 
@@ -47,7 +54,7 @@ const Navbar = () => {
             <BsSearch onClick={handleSearch} className={style.nav_icon2} />
           </div>
         <div className={style.items}>
-          <div whileHover={{scale:1.1}} whileTap={{scale:0.7}} className={style.item}>
+          <div whileHover={{scale:1.1}} whileTap={{scale:0.7}} className={`${style.item} ${style.language}`}>
             <LanguageOutlinedIcon className={style.icon} />
             Eng
           </div>
@@ -75,7 +82,7 @@ const Navbar = () => {
             <motion.img
               whileHover={{scale:1.1}}
               whileTap={{scale:0.7}}
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src={user.photo ?? 'https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'}
               alt=""
               className={style.avatar}
             />

@@ -1,9 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getDefaultMiddleware } from '@reduxjs/toolkit';
-
-const customizedMiddleware = getDefaultMiddleware({
-  serializableCheck: false
-})
 
 const data = localStorage.getItem('user')
 const initialState = {

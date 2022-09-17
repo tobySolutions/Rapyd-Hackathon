@@ -21,18 +21,18 @@ import MessageForm from "../../Components/components/MessageForm";
 import Message from "../../Components/components/Message";
 import { useSelector } from "react-redux";
 import { showUser } from "../../redux/User/UserSlice";
-import { BsSearch } from "react-icons/bs";
+import { BsArrowLeft, BsSearch } from "react-icons/bs";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import {Link} from "react-router-dom"
 
 const Messages = () => {
   const [users, setUsers] = useState([]);
-  const [chat, setChat] = useState("");
+  const [chat, setChat] = useState();
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const [msgs, setMsgs] = useState([]);
-
+  const[toggle, setToggle] = useState(false)
   const userObj = useSelector(showUser)
   const user1 = userObj.uid
 
@@ -51,6 +51,7 @@ const Messages = () => {
   }, [user1]);
 
   const selectUser = async (user) => {
+    setToggle(true)
     setChat(user);
 
     const user2 = user.uid;
@@ -117,7 +118,7 @@ const Messages = () => {
   };
   return (
     <div className={style.chat}>
-      <div className={style.sidebar}>  
+      <div className={` ${style.sidebar} ${toggle ? style.display:  '' }`}>  
       {/* Header */}
         <div className={style.header}>
           <div className={style.chatheaderLeft}>
@@ -151,11 +152,12 @@ const Messages = () => {
         </div>
         
       </div>
-      <div className={style.messageContainer}>
+      <div className={`${style.messageContainer} ${toggle ? '' : style.display }`}>
           {chat ? ( 
               <>
                 <div className={style.header}>
                   <div className={style.chatTitle}>
+                    <BsArrowLeft onClick={() => setToggle(false)} className={style.messageBackArrow} />
                       <div className={style.avatar}></div>
                       <div className={style.messageHeaderContent}>
                           <h4>{chat.name}</h4>

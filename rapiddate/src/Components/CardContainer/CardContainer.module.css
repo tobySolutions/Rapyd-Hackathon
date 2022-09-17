@@ -1,9 +1,13 @@
 .cardContainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     word-wrap: wrap;
     gap:2em;
     margin-top: 2em;
-    /* height: 75vh;
-    overflow: scroll; */
+}
+@media screen and (min-width: 800px) {
+    .cardContainer{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
 }

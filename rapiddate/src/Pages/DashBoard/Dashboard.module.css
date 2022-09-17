@@ -1,19 +1,38 @@
-.mainDashboard {
-    display: flex;
-    align-items: center;
+.display{
+    display:none;
 }
-.leftDashboard {
-    flex: 1;
-    background-color: white;
-    min-height: 100vh;
+.hamburger{
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-.rightDashboard {
-    padding-block: 1.5rem;
-    flex:4;
+.rightDashboard{
     background-color: rgb(223, 223, 223);
-    min-height: 100vh;
+    overflow-y: scroll;
 }
-.container{
-    width:90%;
-    margin:0 auto;
+@media screen and (min-width: 700px) {
+    .mainDashboard {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    .leftDashboard {
+        display: block;
+        flex: 1;
+        background-color: white;
+        min-height: 100vh;
+    }
+    .rightDashboard {
+        padding-block: 1.5rem;
+        flex:4;
+        min-height: 100vh;
+    }
+    .container{
+        width:90%;
+        margin:0 auto;
+    }
+    .hamburger{
+        display: none;
+    }
+
 }

@@ -2,40 +2,51 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    width:100%;
+    width:90%;
     margin-bottom:1em;
+    margin: 0 auto;
+}
+.headerContainer{
+  width: 90%;
+  margin: 0 auto;
+}
+.headerContainer{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap:2em;
+}
+.home{
+  height: 100vh;
+}
+.onlineButton {
+  display:flex;
+  align-items:center;
+  gap:.5em;
+  padding:.1em .4em;
+  border: 1px solid #999;
+  border-radius:10px;
+  color:#888;
+}
+.chatRequests{
+  display: none;
 }
 .head{
     color:#0000FF;
     font-size:1rem;
 }
-.onlineButton {
-    display:flex;
-    align-items:center;
-    gap:.5em;
-    padding:.3em .7em;
-    border: 1px solid #999;
-    border-radius:10px;
-    color:#888;
-}
-.headerContainer{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap:2em;
-}
-input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-
-  /* Styling checkbox */
-  width: 13px;
-  height: 13px;
-  background-color: #888;
-  border-radius: 5px;
-}
-
-input[type="checkbox"]:checked {
+.checkbox:checked {
   background-color: green;
+}
+@media screen and (min-width: 800px) {
+  .headerContainer{
+    width: 100%;
+  }
+  .onlineButton{
+    padding:.3em .7em;
+  }
+  .chatRequests{
+    display: flex;
+    border: 3px solid red;
+  }
 }

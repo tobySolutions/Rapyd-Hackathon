@@ -36,12 +36,20 @@ function App () {
 
         )
       )} */}
-      <Profile />
+      {/* <Profile /> */}
       {/* <BrowserRouter>
         <Routes>
           <Route path='/' element={<Dashboard />} />
         </Routes>
       </BrowserRouter> */}
+      <>
+      <Dashboard />
+        <BrowserRouter>
+            <Routes>
+                <Route path='/messages' element={<Messages />} />
+            </Routes>
+        </BrowserRouter>
+      </>
     </div>
   )
 }

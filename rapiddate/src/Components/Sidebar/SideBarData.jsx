@@ -1,7 +1,7 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
-import {BsEnvelope, BsGear} from "react-icons/bs"
+import {BsChat, BsEnvelope} from "react-icons/bs"
 import style from './Sidebar.module.css'
 
 export const sideBarData = [
@@ -39,9 +39,10 @@ export const sideBarData = [
     },
     {
         id:6,
-        name:"Settings",
-        icon: <BsGear className={style.icon} />,
-        route: '/settngs',
+        name:"Chat Requests",
+        icon: <BsChat className={`${style.icon} ${style.chatRequest}`} />,
+        route: '/requests',
+        fullClass: style.chatRequest
     },
     
 ]

@@ -35,6 +35,10 @@ form input[type=submit] {
 }
 .deleteButton{
     position: absolute;
+    background-color:red;
+    outline:none;
+    
+
     
 }
 .imageLabel{

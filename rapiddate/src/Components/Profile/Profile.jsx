@@ -31,41 +31,39 @@ const Profile = () => {
 
   const uploadImage = async e => {
     setIsLoading(true)
-    const imageFile = e.target.files[0]
-    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
-    console.log(storageRef)
-    const uploadTask = uploadBytesResumable(storageRef, imageFile)
-    uploadTask.on(
-      'state_changed',
+      const imageFile = e.target.files[0]
+      const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
+      const uploadTask = uploadBytesResumable(storageRef, imageFile)
+      uploadTask.on( 'state_changed',
       snapshot => {
         const uploadProgress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log(uploadProgress)
-      },
-      error => {
-        console.log(error)
-        setFields(true)
-        setMsg('Error while uploading : Try Again')
-        setAlertStatus('danger')
-        setTimeout(() => {
-          setFields(false)
-          setIsLoading(false)
-        }, 4000)
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref)
-        .then(downloadURL => {
-          setFormData({...formData, url: downloadURL})
-          setIsLoading(false)
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        console.log(imageFile)
+        },
+        error => {
+          console.log(error)
           setFields(true)
-          setMsg('image uploaded successfully')
-          setAlertStatus('success')
+          setMsg('Error while uploading : Try Again')
+          setAlertStatus('danger')
+          setIsLoading(false)
           setTimeout(() => {
             setFields(false)
           }, 4000)
-        })
-      }
-    )
+        },() => {
+          getDownloadURL(uploadTask.snapshot.ref)
+          .then(downloadURL => {
+            setFormData({...formData, url: downloadURL})
+            setIsLoading(false)
+            setFields(true)
+            setMsg('image uploaded successfully')
+            setAlertStatus('success')
+            setTimeout(() => {
+              setFields(false)
+            }, 4000)
+          })
+        }
+      )
+      setIsLoading(false)
   }
   const handleChange = e => {
     const value =
@@ -243,17 +241,18 @@ const Profile = () => {
                 <div>Loading</div>
               ) : (
                 <>
+                  {msg ? <p>{msg}</p> : ''}
                   {formData.url ? (
                     <>
                       <div className='relative h-full'>
                         <h1>Profile Photo</h1>
-                      <div className={style.profileImage}>
-                        <img
-                          src={formData.url}
-                          alt='uploaded'
-                          className={style.uploadedImage}
-                        />
-                      </div>
+                        <div className={style.profileImage}>
+                          <img
+                            src={formData.url}
+                            alt='uploaded'
+                            className={style.uploadedImage}
+                          />
+                        </div>
                         <button
                           className='absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out '
                           // onClick={deleteImage}
@@ -283,7 +282,6 @@ const Profile = () => {
                   )}
                 </>
               )}
-             
             </section>
           </div>
           <input type='submit' />

@@ -1,14 +1,45 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic);
 .sidebar {
   border-right: 0.5px solid #e6e3e3;
+  background-color: white;
   padding-block: 2em;
   color: #888;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  height: 100vh;
+
+}
+.top{
+  display: flex;
+}
+.sidebar .backArrow{
+  width: 10px;
+}
+.sidebarContainer{
+  overflow-y: scroll;
+}
+
+@media screen and (min-width: 800px) {
+.sidebar .backArrow{
+  display: none;
+}
+.chatRequest{
+  display: none;
+}
+.sidebarContainer{
+  position: fixed;
+}
+.sidebar{
+  position: relative;
+}
+
 }
 .sidebarContainer{
   display: flex;
   flex-direction: column;
   gap: 3em;
-  position: fixed;
   top: 5%;
 
 }
@@ -26,7 +57,7 @@
   color: #0000FF;
   font-family: 'Lato', sans-serif;
   font-style:italic;
-  margin: 0 30px;
+  /* margin: 0 30px; */
 }
 .sidebar .top{
   text-align: center;
@@ -41,6 +72,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+.sidebar .backArrow{
+  width:80%;
+  margin:0 auto;
 }
 
 .sidebar .center ul .title {
