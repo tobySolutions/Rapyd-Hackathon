@@ -42,10 +42,10 @@ const  UserCard = ({user}) => {
         }
       })
     }
-    // test()
+    test()
   }, [])
   const styles = {
-    backgroundImage: profile,
+    backgroundImage: user?.photo,
     backgroundSize: 'cover',
     backgroundPostion:'center',
     position:'relative'
@@ -61,9 +61,9 @@ const  UserCard = ({user}) => {
     <div className={style.card_new} style={styles} >
       <div className={`${style.onlineStatus} ${user.isOnline ? style.online : style.notOnline}`}></div>
       <RemoveRedEyeIcon onClick={handleShowMessage} className={style.icon} />
-      <img src={profile} className={style.profileImage} alt='profile' />
+      <img src={user?.photo} className={style.profileImage} alt='profile' />
       <div className={style.userInfo}>
-        <p>Susan</p>
+        <p>{user?.name}</p>
         <p>18</p>
       </div>
       {showModal ? (

@@ -60,8 +60,8 @@ const Login = () => {
       return err
     }
   }
-  const handleGoogle =  () => {
-    const response = signInWithGoogle()
+  const handleGoogle = async () => {
+    const response = await signInWithGoogle()
     if(response.error === null){
       handleReloadAndClear()
     }else{

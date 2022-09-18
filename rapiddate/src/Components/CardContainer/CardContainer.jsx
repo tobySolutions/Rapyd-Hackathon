@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import { showUsers } from '../../redux/Users/UsersSlice'
 
 const CardContainer = () => {
-  // const users = useSelector(showUsers)
-  const users = [1,2,3,4,5,6,]
+  const users = useSelector(showUsers)
+  // const users = [1,2,3,4,5,6,]
   return (
     <div className={style.cardContainer}>
       {users?.map((user) => {

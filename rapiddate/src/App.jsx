@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Authenticate from './Components/Authentication/Authenticate'
 import Profile from './Components/Profile/Profile'
+import Wallet from './Components/Wallet/Wallet'
 import Dashboard from './Pages/DashBoard/Dashboard'
 import Messages from './Pages/Messages/Messages'
 import { showUser } from './redux/User/UserSlice'
@@ -25,31 +26,25 @@ function App () {
           </BrowserRouter>
         ) : (
           // If the user has authenticated and filled out his values, it should them to this page
-          <BrowserRouter>
-            <Routes>
-              <Route path='/'>
-                <Route path='/' element={<Dashboard />} />
-                <Route path='/messages' element={<Messages />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-
+          <>
+            <BrowserRouter>
+              <Routes>
+                <Route path='/'>
+                  <Route path='/' element={<Dashboard />} />
+                  <Route path='/messages' element={<Messages />} />
+                  <Route path='/wallet' element={<Wallet />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </>
         )
       )} */}
-      {/* <Profile /> */}
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter> */}
-      <>
-      <Dashboard />
-        {/* <BrowserRouter>
-            <Routes>
-                <Route path='/messages' element={<Messages />} />
-            </Routes>
-        </BrowserRouter> */}
-      </>
+          
+          <Routes>
+      </BrowserRouter>
+
     </div>
   )
 }
