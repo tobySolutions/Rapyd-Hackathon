@@ -79,7 +79,7 @@ const Home = () => {
           {isLoading ? <Loading /> : <CardContainer />}
         </div>
         <div 
-          className={style.chatRequests} style={{width: "30%"}}>
+          className={style.chatRequests} >
           <ChatRequests />
           </div>
       </div>

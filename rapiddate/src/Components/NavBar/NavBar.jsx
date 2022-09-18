@@ -37,7 +37,7 @@ const Navbar = () => {
   const handleToggle = () => {
     dispatch(toggleMenu(true))
   }
-  console.log(user)
+  console.log(user.photo)
   return (
     <div className={style.navbar}>
       <div className={style.wrapper}> 
@@ -79,11 +79,12 @@ const Navbar = () => {
             <div className={style.counter}>2</div>
           </motion.div>
           <motion.div  className={style.item}>
-            <p style={{marginRight: "20px"}}>Hi {user.name}</p>
+            <p style={{marginRight: "20px"}}>Hi {user?.name}</p>
             <motion.img
               whileHover={{scale:1.1}}
               whileTap={{scale:0.7}}
-              src='https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
+              src="https://lh3.googleusercontent.com/a/AItbvmkDszoBO8CdGl-76p_RmmyyXMpci8vGeNcntDjP=s96-c"
+
               alt=""
               className={style.avatar}
             />

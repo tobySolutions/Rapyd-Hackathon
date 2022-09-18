@@ -6,8 +6,10 @@ import LockIcon from '@mui/icons-material/Lock';
 import MailIcon from '@mui/icons-material/Mail';
 import signUpWithGoogle from "./SignUpWithGoogle";
 import style from '../Auth.module.css'
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     name: '',email: "",password: "",error: null,loading: false
   });
@@ -19,7 +21,8 @@ const Register = () => {
     })
   }
   const handleReloadAndClear = () => {
-    window.location.reload()
+    navigate('/dashboard')
+    navigate(0)
     setTimeout(() => {
       setData({
         email: '',password: '',error: null,loading: false

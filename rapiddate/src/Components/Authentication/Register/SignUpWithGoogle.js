@@ -7,12 +7,11 @@ const signUpWithGoogle = async (user ) => {
     let resultObj = {error: null}
     try {
         const result = await signInWithPopup(auth, provider)
-        const {uid, displayName,email,photoURL} = result.user
+        const {uid, displayName,email} = result.user
         const dbResult = {
             uid: uid,
             name:displayName,
             email:email,
-            photo:photoURL,
             createdAt: Timestamp.fromDate(new Date()),
             isOnline: true,
         }

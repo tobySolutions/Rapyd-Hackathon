@@ -9,15 +9,16 @@ export const sideBarData = [
         id:1,
         name:"Dashboard",
         icon: <DashboardIcon className={style.icon} />,
-        route: '/',
+        route: '/dashboard',
         selected: true,
+        classNames:style.selected
     },
     {
         id:2,
         name:"Explore",
         icon: <BsEnvelope className={style.icon} />,
         route: '/explore',
-        
+        classNames:style.selected
     },
     {
         id:3,

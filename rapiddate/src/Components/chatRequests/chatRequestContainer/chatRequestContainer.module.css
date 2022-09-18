@@ -1,0 +1,34 @@
+
+.chatRequestContainer{
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    min-width: 250px;
+    padding: 10px;
+    margin-bottom: 1em;
+}
+.heading{
+    color: #0000FF;
+    font-size: 1.5rem;
+    margin-bottom: .5em;
+}
+.innerContainer{
+    overflow-y: scroll;
+    height: 300px;
+}
+.innerContainer::-webkit-scrollbar{
+    display: none;
+}
+@media screen and (min-width:800px) {
+    
+    .chatRequestContainer{
+        flex: 1;
+        background-color: white;
+        border-radius: 10px;
+        width: 100%;
+        min-width: 250px;
+        padding: 10px;
+        margin-bottom: 1em;
+    }
+
+}

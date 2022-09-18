@@ -26,11 +26,13 @@ const Sidebar = () => {
       })
       .catch(error => console.log(error))
   }
-  const [selected, setSelected] = useState(false)
-  const handleSelection = () => {
-    
+  const [selected, setSelected] = useState(null)
+  const handleClassChange = (name) => {
+    if(name.toLowerCase() === selected){
+      console.log(selected, name)
+      return style.selected
+    }
   }
-  
 
   return (
     <div className={style.sidebar}>
@@ -56,7 +58,7 @@ const Sidebar = () => {
           <ul>
             <p className={style.title}>MENU</p>
             {sideBarData?.map(data => {
-              const { id, name, route, icon, selected, fullClass } = data
+              const { id, name, route, icon, fullClass } = data
               return (
                 <Link
                   key={id}
@@ -64,10 +66,8 @@ const Sidebar = () => {
                   style={{ textDecoration: 'none', color: '#888' }}
                 >
                   <li
-                    onClick={handleSelection}
-                    className={`${style.listItem} ${
-                      selected ? style.selected : ''
-                    }`}
+                    onClick={() => setSelected(name.toLowerCase())}
+                    className={`${style.listItem} ${handleClassChange(name)}`}
                   >
                     {icon}
                     <span className={fullClass}>{name}</span>

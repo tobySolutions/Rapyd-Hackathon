@@ -7,9 +7,11 @@ import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../database/firebase';
 import signInWithGoogle from './SignInWithGoogle';
 import style from '../Auth.module.css'
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -24,7 +26,9 @@ const Login = () => {
     })
   }
   const handleReloadAndClear = () => {
-    window.location.reload()
+    navigate('/dashboard')
+    navigate(0)
+    console.log('hey')
     setTimeout(() => {
       setData({
         email: '',

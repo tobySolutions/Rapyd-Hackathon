@@ -122,7 +122,7 @@ const Messages = () => {
       {/* Header */}
         <div className={style.header}>
           <div className={style.chatheaderLeft}>
-            <Link to="/">
+            <Link to="/dashboard">
               <KeyboardBackspaceIcon style={{width: "20px"}} className={style.icon} />
             </Link>
             <div className={style.avatar}></div>
@@ -185,7 +185,10 @@ const Messages = () => {
               </>
             ): (
             <div className={style.convo}>
-              <h3 className={style.emptyConvo}>Start a Conversation with people around you</h3>   
+              <div>
+                <div className={style.convobox}></div>
+                <h3 className={style.emptyConvo}>Start a Conversation with people around you</h3>   
+              </div>
             </div>
           )}
       </div>  

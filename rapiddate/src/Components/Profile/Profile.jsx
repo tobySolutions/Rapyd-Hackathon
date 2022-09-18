@@ -1,9 +1,10 @@
 import { Delete } from '@material-ui/icons'
-import { doc, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable, uploadBytes } from 'firebase/storage'
 import { useState } from 'react'
 import { BsCloudUpload } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { db, storage } from '../../database/firebase'
 import { showUser } from '../../redux/User/UserSlice'
 import style from './Profile.module.css'
@@ -24,11 +25,12 @@ const Profile = () => {
     show_gender: false,
     gender_identity: 'man',
     gender_interest: 'woman',
-    file: '',
+    url: '',
     about: '',
     matches: []
   })
 
+  const navigate = useNavigate()
   const uploadImage = async e => {
     setIsLoading(true)
       const imageFile = e.target.files[0]
@@ -74,10 +76,25 @@ const Profile = () => {
       [name]: value
     }))
   }
+  const verifyUser = async() => {
+    const userRef = collection(db, "Users");
+    const docRef = doc(userRef, user.uid);
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        localStorage.setItem('user', JSON.stringify(docSnap.data()))
+        console.log(docSnap.data())
+      }
+    } catch (err) {
+      return err
+    }
+  }
   const handleSubmit = async e => {
     e.preventDefault()
     await updateDoc(doc(db, 'Users', user.uid), formData)
-    window.location.reload()
+    await verifyUser()
+    navigate('/dashboard')
+    navigate(0)
   }
 
   return (
@@ -122,6 +139,7 @@ const Profile = () => {
                     type='number'
                     name='dob_day'
                     placeholder='DD'
+                    maxLength={2}
                     required={true}
                     value={formData.dob_day}
                     onChange={handleChange}
@@ -132,6 +150,7 @@ const Profile = () => {
                     type='number'
                     name='dob_month'
                     placeholder='MM'
+                    maxLength={2}
                     required={true}
                     value={formData.dob_month}
                     onChange={handleChange}
@@ -142,6 +161,7 @@ const Profile = () => {
                     type='number'
                     name='dob_year'
                     placeholder='YYYY'
+                    maxLength={4}
                     required={true}
                     value={formData.dob_year}
                     onChange={handleChange}
@@ -244,7 +264,7 @@ const Profile = () => {
                   {msg ? <p>{msg}</p> : ''}
                   {formData.url ? (
                     <>
-                      <div className='relative h-full'>
+                      <div className={style.imageMainDiv}>
                         <h1>Profile Photo</h1>
                         <div className={style.profileImage}>
                           <img
@@ -254,7 +274,7 @@ const Profile = () => {
                           />
                         </div>
                         <button
-                          className='absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out '
+                          className={style.deleteButton}
                           // onClick={deleteImage}
                         >
                           <Delete />
@@ -275,6 +295,7 @@ const Profile = () => {
                           name='file'
                           accept='image/*'
                           onChange={uploadImage}
+                          required={true}
                           className={style.uploadSection}
                         />
                       </label>

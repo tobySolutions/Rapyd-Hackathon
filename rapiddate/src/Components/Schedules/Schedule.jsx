@@ -5,7 +5,7 @@ import styles from '../../Pages/DashBoard/Dashboard.module.css'
 import { useSelector } from 'react-redux'
 import { showMenuToggle } from '../../redux/Menu/MenuSlice'
 
-const Explore = () => {
+const Schedule = () => {
   const toggler = useSelector(showMenuToggle)
   return (
     <div className={styles.mainDashboard}>
@@ -24,4 +24,4 @@ const Explore = () => {
   )
 }
 
-export default Explore
+export default Schedule

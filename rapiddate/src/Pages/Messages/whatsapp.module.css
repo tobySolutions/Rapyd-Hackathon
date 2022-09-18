@@ -258,6 +258,25 @@ h4{
 .messageBackArrow{
     display: none;
 }  
+.convo{
+    height: 100vh;
+    color:gray;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.convo div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.convobox{
+    width:300px;
+    height:300px;
+    background: #D0ECFE;
+    border-radius: 5px;
+    margin-bottom: 1em;
+}
 @media screen and (max-width: 700px) {
     .display{
         display: none;

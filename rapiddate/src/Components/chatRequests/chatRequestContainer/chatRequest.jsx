@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
-import { showUser } from '../../redux/User/UserSlice';
-import { db } from '../../database/firebase';
+import { showUser } from '../../../redux/User/UserSlice';
+import { db } from '../../../database/firebase';
+import style from './chatRequest.module.css'
+
 
 const ChatRequest = ({user2}) => {
     const user = useSelector(showUser)
@@ -15,16 +17,15 @@ const ChatRequest = ({user2}) => {
         
     }
     return (
-        <div>
-            <div>
-                Picture
+        <div className={style.container}>
+            <div className={style.image}>
             </div>
-            <div>
-                {/* <h4>{user2.name}</h4>
-                <p>{user2.description}</p> */}
+            <div className={style.info}>
+                <h4>{user2?.name}</h4>
+                <p>{user2?.description}</p>
             </div>
-            <button onClick={handleRequest}>Accept</button>
-            <CloseIcon />
+            <button className={style.button} onClick={handleRequest}>Accept</button>
+            <CloseIcon className={style.icon} />
         </div>
     )
 }
