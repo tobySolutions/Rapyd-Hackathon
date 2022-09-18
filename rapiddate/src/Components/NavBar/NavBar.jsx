@@ -83,8 +83,7 @@ const Navbar = () => {
             <motion.img
               whileHover={{scale:1.1}}
               whileTap={{scale:0.7}}
-              src="https://lh3.googleusercontent.com/a/AItbvmkDszoBO8CdGl-76p_RmmyyXMpci8vGeNcntDjP=s96-c"
-
+              src={user?.url}
               alt=""
               className={style.avatar}
             />

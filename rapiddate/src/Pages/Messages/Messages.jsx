@@ -125,7 +125,9 @@ const Messages = () => {
             <Link to="/dashboard">
               <KeyboardBackspaceIcon style={{width: "20px"}} className={style.icon} />
             </Link>
-            <div className={style.avatar}></div>
+            <div className={style.avatar}>
+              <img src={userObj?.url} alt="" />
+            </div>
           </div>
           <div className={style.chatheaderRight}>
             <MoreVertIcon className={style.icon}  />
@@ -158,7 +160,9 @@ const Messages = () => {
                 <div className={style.header}>
                   <div className={style.chatTitle}>
                     <BsArrowLeft onClick={() => setToggle(false)} className={style.messageBackArrow} />
-                      <div className={style.avatar}></div>
+                      <div className={style.avatar}>
+                        <img src={chat?.url} alt="" />
+                      </div>
                       <div className={style.messageHeaderContent}>
                           <h4>{chat.name}</h4>
                           <p>{chat.isOnline ? 'Online' : ''}</p>

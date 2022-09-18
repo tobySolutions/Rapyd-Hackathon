@@ -80,7 +80,7 @@ const Sidebar = () => {
         <div className={style.center}>
           <ul>
             <p
-              style={{ textDecoration: 'none', color: '#888' }}
+              style={{ textDecoration: 'none', color: '#888', cursor:'pointer' }}
               onClick={handleLogout}
             >
               <li className={`${style.listItem}`}>

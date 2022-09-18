@@ -18,13 +18,14 @@ const ChatRequest = ({user2}) => {
     }
     return (
         <div className={style.container}>
-            <div className={style.image}>
+            <div className={style.imageContainer}>
+                <img className={style.image} src={user?.url} alt="" />
             </div>
             <div className={style.info}>
                 <h4>{user2?.name}</h4>
                 <p>{user2?.description}</p>
             </div>
-            <button className={style.button} onClick={handleRequest}>Accept</button>
+            <button style={{cursor:'pointer'}} className={style.button} onClick={handleRequest}>Accept</button>
             <CloseIcon className={style.icon} />
         </div>
     )

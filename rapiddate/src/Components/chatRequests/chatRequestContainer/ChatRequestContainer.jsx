@@ -8,19 +8,19 @@ import style from './chatRequestContainer.module.css'
 
 const ChatRequestContainer = () => {
   const user = useSelector(showUser)
-  const [chatRequests, setChatRequests] = useState([1,2,3,4,5,6,7,])
-  // useEffect(() => {
-  //   const usersRef = collection(db, 'Friends', user.uid, 'Friends')
-  //   const q = query(usersRef, where('friendStatus', '==', 'pending'))
-  //   const unsub = onSnapshot(q, querySnapshot => {
-  //     let arr = []
-  //     querySnapshot.forEach(doc => {
-  //       arr.push(doc.data())
-  //     })
-  //     setChatRequests(arr)
-  //   })
-  //   return () => unsub()
-  // }, [user])
+  const [chatRequests, setChatRequests] = useState([])
+  useEffect(() => {
+    const usersRef = collection(db, 'Friends', user.uid, 'Friends')
+    const q = query(usersRef, where('friendStatus', '==', 'pending'))
+    const unsub = onSnapshot(q, querySnapshot => {
+      let arr = []
+      querySnapshot.forEach(doc => {
+        arr.push(doc.data())
+      })
+      setChatRequests(arr)
+    })
+    return () => unsub()
+  }, [user])
   return (
     <div className={style.chatRequestContainer}>
       <div className={style.innerContainer}>

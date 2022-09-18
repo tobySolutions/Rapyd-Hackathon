@@ -44,8 +44,9 @@ const  UserCard = ({user}) => {
     }
     test()
   }, [])
+  console.log(user)
   const styles = {
-    backgroundImage: user?.photo,
+    backgroundImage: user?.url,
     backgroundSize: 'cover',
     backgroundPostion:'center',
     position:'relative'
@@ -61,15 +62,19 @@ const  UserCard = ({user}) => {
     <div className={style.card_new} style={styles} >
       <div className={`${style.onlineStatus} ${user.isOnline ? style.online : style.notOnline}`}></div>
       <RemoveRedEyeIcon onClick={handleShowMessage} className={style.icon} />
-      <img src={user?.photo} className={style.profileImage} alt='profile' />
+      <img src={user?.url} className={style.profileImage} alt='profile' />
       <div className={style.userInfo}>
         <p>{user?.name}</p>
         <p>18</p>
       </div>
       {showModal ? (
         <UserModal onClose={handleCloseModal}>
-          This is the modal message
-          <button onClick={sendRequest} disabled={disabled}>{loading ? 'Connecting.....' : 'Send Request'}</button>
+          <div className={style.profilePicContainer}>
+            <img className={style.profilePic} src={user?.url} alt="" />
+          </div>
+          <h2 className={style.fullName}>{user?.first_name} {user?.name}</h2>
+          <p className={style.about}>{user?.about}</p>
+          <button className={style.button} onClick={sendRequest} disabled={disabled}>{loading ? 'Connecting.....' : 'Send Request'}</button>
         </UserModal>
       ): ''}
     </div>

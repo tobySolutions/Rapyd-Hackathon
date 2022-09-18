@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ element: Component, ...rest }) => {
     const user = useSelector(showUser)
-    return user?.photo ? <Outlet /> :  <Navigate replace to='/profile' />
+    return user?.url ? <Outlet /> :  <Navigate replace to='/profile' />
 };
 
 export default PrivateRoute;

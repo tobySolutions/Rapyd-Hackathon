@@ -45,7 +45,9 @@ const User = ({ user1, user, selectUser, chat }) => {
   return (
     <>
       <div className={style.sidebarChat} onClick={() => selectUser(user)}>
-        <div className={style.chatAvatar}></div>
+        <div className={style.chatAvatar}>
+          <img src={user?.url} alt="" className={style.avatar} />
+        </div>
         <div className={style.chatInfo}>
             <h4>{user.name ? convertToSentenceCase(user.name) : ''}</h4>
             <p>
