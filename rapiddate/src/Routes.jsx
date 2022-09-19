@@ -1,23 +1,55 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Authenticate from './Components/Authentication/Authenticate';
-import ChatRequests from './Components/chatRequests/chatRequests';
-import Explore from './Components/Explore/Explore';
-import MobileRequests from './Components/MobileRequests/MobileRequests';
 import PrivateRoute from './Components/Private/PrivateRoute';
 import ProfilePrivateRoute from './Components/Private/ProfilePrivateRoute';
-import Profile from './Components/Profile/Profile';
-import Wallet from './Components/Wallet/Wallet';
-import Dashboard from './Pages/DashBoard/Dashboard';
-import LandingPage from './Pages/LandingPage/LandingPage';
-import Messages from './Pages/Messages/Messages';
+import loadable from "@loadable/component";
+import Loader2 from './Components/Loader/Loader2';
+
 
 function RoutesContainer () {
+
+  const AsyncHome = loadable(
+    () => import("./Pages/LandingPage/LandingPage"), {
+    fallback: <Loader2 />
+  });
+  const Authenticate = loadable(
+    () => import("./Components/Authentication/Authenticate"), {
+    fallback: <Loader2 />
+  });
+  const Profile = loadable(
+    () => import("./Components/Profile/Profile"), {
+    fallback: <Loader2 />
+  });
+  const Dashboard = loadable(
+    () => import("./Pages/DashBoard/Dashboard"), {
+    fallback: <Loader2 />
+  });
+  const Messages = loadable(
+    () => import("./Pages/Messages/Messages"), {
+    fallback: <Loader2 />
+  });
+  const Explore = loadable(
+    () => import("./Components/Explore/Explore"), {
+    fallback: <Loader2 />
+  });
+  const Schedule = loadable(
+    () => import("./Components/Schedules/Schedule"), {
+    fallback: <Loader2 />
+  });
+  const Wallet = loadable(
+    () => import("./Components/Wallet/Wallet"), {
+    fallback: <Loader2 />
+  });
+  const MobileRequests = loadable(
+    () => import("./Components/MobileRequests/MobileRequests"), {
+    fallback: <Loader2 />
+  });
+
 
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" exact element={<AsyncHome />} />
           <Route path="/authenticate" element={<Authenticate />} />
           <Route path="/profile" element={<ProfilePrivateRoute />}>
             <Route path="/profile" element={<Profile />} />
@@ -36,7 +68,7 @@ function RoutesContainer () {
           </Route>
 
           <Route path="/schedule" element={<PrivateRoute />}>
-            <Route path="/schedule" element={<Explore />} />
+            <Route path="/schedule" element={<Schedule />} />
           </Route>
 
           <Route path="/wallet" element={<PrivateRoute />}>

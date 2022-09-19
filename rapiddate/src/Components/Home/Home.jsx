@@ -24,7 +24,11 @@ const Home = () => {
   const [onlineChecked, setOnlineChecked] = useState(false)
   const userRef = collection(db, 'Users')
   const getAllUsers = async () => {
-    const q = query(userRef, where('uid', '!=', mainUser.uid))
+    const q = query(
+      userRef, 
+      where('uid', '!=', mainUser.uid),
+      !(mainUser.gender_interest === "everyone") && where('gender_identity', '==', mainUser.gender_interest)
+    )
     const querySnapshot = await getDocs(q)
     let users = []
     querySnapshot.forEach(doc => {

@@ -180,10 +180,9 @@ h4{
     /* background: url(./background.png); */
     background-color: #E5EBF5;
     background-position: center;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 120px);
     padding:20px 80px;
     overflow-y:scroll;
-    border: 3px solid red;
 }
 .chatMessage{
     font-size: 14px;
@@ -212,7 +211,6 @@ h4{
 /* Message Footer */
 
 .messageFooter{
-    border:3px solid red;
     display:flex;
     align-items:center;
     /* padding:5px 10px; */
@@ -278,7 +276,7 @@ h4{
     border-radius: 5px;
     margin-bottom: 1em;
 }
-/* @media screen and (max-width: 700px) {
+@media screen and (max-width: 700px) {
     .display{
         display: none;
     }
@@ -286,4 +284,4 @@ h4{
         display: block;
         margin-right: 2em;
     }
-} */
+}

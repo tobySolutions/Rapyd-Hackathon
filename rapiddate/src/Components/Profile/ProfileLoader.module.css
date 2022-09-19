@@ -1,0 +1,84 @@
+:root {
+  --timing: 1.5s infinite linear;
+}
+
+.body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svg {
+    animation: size var(--timing);
+    overflow: visible;
+    transform: scale(1);
+    width: 4rem;
+}
+
+.fill {
+    animation: drop-shadow-blink var(--timing);
+    fill: white;
+    filter: drop-shadow(0 0 2px #0000FF);
+}
+
+.fillAnimated {
+   animation: fill-blink var(--timing);
+   fill: #0000FF;
+}
+
+.innerShadow, .innerShadowAnimated {
+    fill: transparent;
+    stroke: white;
+    stroke-width: 2px;
+}
+
+.innerShadow {
+    filter: drop-shadow(0 0 1px #0000FF);
+}
+
+.innerShadowAnimated {
+    animation: inner-shadow-blink var(--timing);
+    filter: drop-shadow(0 0 3px #0000FF);
+}
+
+@keyframes size {
+    0%, 95%, 100% {
+        transform: scale(1);
+    }
+    
+    75% {
+        transform: scale(.9);
+    }
+}
+
+@keyframes fill-blink {
+    0%, 100% {
+        opacity: 0;
+    }
+    
+    75% {
+        opacity: .45;
+    }
+}
+
+@keyframes inner-shadow-blink {
+    0%, 100% {
+        opacity: 0;
+    }
+    
+    75% {
+        opacity: 1;
+    }
+}
+
+@keyframes drop-shadow-blink {
+    0%, 90%, 100%{
+        filter: drop-shadow(0 0 6px rgb(235, 235, 235));
+    }
+    75% {
+        filter: drop-shadow(0 0 3px #0000FF);
+    }
+}
+
+

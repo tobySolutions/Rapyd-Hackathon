@@ -71,7 +71,7 @@ form input[type=submit]:hover {
     min-height: 80vh;
     border-radius: 10px;
     box-shadow: 1px 1px 10px rgb(143, 131, 131);
-    padding: 20px 0;
+    padding: 20px;
     overflow: scroll;
 }
 .name{
@@ -153,6 +153,13 @@ form input[type=radio]:checked + label {
 .imageMainDiv{
     position:relative;
     height:100%;
+}
+
+#dob_year input:invalid {
+  border: 2px dashed red;
+}
+#dob_year input:invalid:focus {
+  background-image: linear-gradient(pink, lightgreen);
 }
 
 .deleteButton{

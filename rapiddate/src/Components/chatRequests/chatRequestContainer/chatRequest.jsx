@@ -1,6 +1,6 @@
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 import { showUser } from '../../../redux/User/UserSlice';
 import { db } from '../../../database/firebase';
@@ -14,7 +14,9 @@ const ChatRequest = ({user2}) => {
             ...user2,
             friendStatus: true,
         });
-        
+        await setDoc(doc(db, "Friends", user2.uid, "Friends", user.uid), {
+            ...user, friendStatus: true
+        });
     }
     return (
         <div className={style.container}>

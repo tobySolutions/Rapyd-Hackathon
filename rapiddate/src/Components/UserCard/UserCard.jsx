@@ -65,7 +65,7 @@ const  UserCard = ({user}) => {
       <img src={user?.url} className={style.profileImage} alt='profile' />
       <div className={style.userInfo}>
         <p>{user?.name}</p>
-        <p>18</p>
+        <p>{user?.age}</p>
       </div>
       {showModal ? (
         <UserModal onClose={handleCloseModal}>

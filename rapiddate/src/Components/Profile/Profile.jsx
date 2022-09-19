@@ -1,6 +1,11 @@
 import { Delete } from '@material-ui/icons'
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytesResumable, uploadBytes } from 'firebase/storage'
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+  deleteObject
+} from 'firebase/storage'
 import { useState } from 'react'
 import { BsCloudUpload } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
@@ -8,13 +13,11 @@ import { useNavigate } from 'react-router-dom'
 import { db, storage } from '../../database/firebase'
 import { showUser } from '../../redux/User/UserSlice'
 import style from './Profile.module.css'
+import ProfileLoader from './ProfileLoader'
 
 const Profile = () => {
   const user = useSelector(showUser)
   const [isLoading, setIsLoading] = useState(false)
-  const [imageAsset, setImageAsset] = useState(null)
-  const [fields, setFields] = useState(false)
-  const [alertStatus, setAlertStatus] = useState('danger')
   const [msg, setMsg] = useState(null)
   const [formData, setFormData] = useState({
     first_name: '',
@@ -27,45 +30,46 @@ const Profile = () => {
     gender_interest: 'woman',
     url: '',
     about: '',
-    matches: []
+    age: ''
   })
 
   const navigate = useNavigate()
   const uploadImage = async e => {
     setIsLoading(true)
-      const imageFile = e.target.files[0]
-      const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
-      const uploadTask = uploadBytesResumable(storageRef, imageFile)
-      uploadTask.on( 'state_changed',
+    const imageFile = e.target.files[0]
+    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
+    const uploadTask = uploadBytesResumable(storageRef, imageFile)
+    uploadTask.on(
+      'state_changed',
       snapshot => {
         const uploadProgress =
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         console.log(imageFile)
-        },
-        error => {
-          console.log(error)
-          setFields(true)
-          setMsg('Error while uploading : Try Again')
-          setAlertStatus('danger')
+      },
+      error => {
+        console.log(error)
+        setMsg('Error while uploading : Try Again')
+        setIsLoading(false)
+        setTimeout(() => {}, 4000)
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+          setFormData({ ...formData, url: downloadURL })
           setIsLoading(false)
-          setTimeout(() => {
-            setFields(false)
-          }, 4000)
-        },() => {
-          getDownloadURL(uploadTask.snapshot.ref)
-          .then(downloadURL => {
-            setFormData({...formData, url: downloadURL})
-            setIsLoading(false)
-            setFields(true)
-            setMsg('image uploaded successfully')
-            setAlertStatus('success')
-            setTimeout(() => {
-              setFields(false)
-            }, 4000)
-          })
-        }
-      )
+          setMsg('image uploaded successfully')
+          setTimeout(() => {}, 4000)
+        })
+      }
+    )
+  }
+  const deleteImage = () => {
+    setIsLoading(true)
+    const deleteRef = ref(storage, formData.url)
+    deleteObject(deleteRef).then(() => {
+      setFormData({ ...formData, url: '' })
       setIsLoading(false)
+      setMsg('Image Deleted Successfully')
+    })
   }
   const handleChange = e => {
     const value =
@@ -76,11 +80,11 @@ const Profile = () => {
       [name]: value
     }))
   }
-  const verifyUser = async() => {
-    const userRef = collection(db, "Users");
-    const docRef = doc(userRef, user.uid);
+  const verifyUser = async () => {
+    const userRef = collection(db, 'Users')
+    const docRef = doc(userRef, user.uid)
     try {
-      const docSnap = await getDoc(docRef);
+      const docSnap = await getDoc(docRef)
       if (docSnap.exists()) {
         localStorage.setItem('user', JSON.stringify(docSnap.data()))
         console.log(docSnap.data())
@@ -139,7 +143,7 @@ const Profile = () => {
                     type='number'
                     name='dob_day'
                     placeholder='DD'
-                    maxLength={2}
+                    maxLength='2'
                     required={true}
                     value={formData.dob_day}
                     onChange={handleChange}
@@ -150,7 +154,7 @@ const Profile = () => {
                     type='number'
                     name='dob_month'
                     placeholder='MM'
-                    maxLength={2}
+                    maxLength='2'
                     required={true}
                     value={formData.dob_month}
                     onChange={handleChange}
@@ -161,7 +165,8 @@ const Profile = () => {
                     type='number'
                     name='dob_year'
                     placeholder='YYYY'
-                    maxLength={4}
+                    maxLength='4'
+                    minLength='4'
                     required={true}
                     value={formData.dob_year}
                     onChange={handleChange}
@@ -210,6 +215,19 @@ const Profile = () => {
                   checked={formData.show_gender}
                 />
                 <label htmlFor='show-gender'>Show Gender on my Profile</label>
+                <div className={style.inputBox}>
+                  <label htmlFor='age'>Age</label>
+                  <input
+                    id='age'
+                    type='number'
+                    name='age'
+                    placeholder='Age'
+                    required={true}
+                    value={formData.age}
+                    onChange={handleChange}
+                    style={{ width: '50%' }}
+                  />
+                </div>
               </div>
               <div className={style.inputBox}>
                 <label style={{ marginBottom: '.5em' }}>Show Me</label>
@@ -258,7 +276,7 @@ const Profile = () => {
             </section>
             <section className={style.formPhoto}>
               {isLoading ? (
-                <div>Loading</div>
+                <ProfileLoader />
               ) : (
                 <>
                   {msg ? <p>{msg}</p> : ''}
@@ -275,7 +293,7 @@ const Profile = () => {
                         </div>
                         <button
                           className={style.deleteButton}
-                          // onClick={deleteImage}
+                          onClick={deleteImage}
                         >
                           <Delete />
                         </button>
